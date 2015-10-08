@@ -1,0 +1,49 @@
+<div data-ng-controller="MainCtrl" class="well well-lg">
+
+  <div class="row">
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="exampleInputName2">Artist</label>
+        <input type="text" class="form-control" data-ng-model="artist" id="exampleInputName2" placeholder="Search">
+      </div>
+      <button type="submit" data-ng-click="search()" class="btn btn-default">SEARCH</button>
+    </form>
+  </div>
+
+  <br/>
+
+  <div class="row" data-ng-show="result != ''">
+    <div class="alert alert-warning">
+      <h5 data-ng-bind="result"></h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 pull-left">
+      <div class="col-lg-6 pull-left">
+          <h4>Search results</h4>
+          <table class="artist-table">
+              <tr ng-repeat="artist in artists" class="artists-!shortlisted">
+                  <td><b>name:</b> {{artist}} -</td>
+                  <td>
+                      <button data-ng-click="addItem(artist)" >add to ShortList</button>
+                  </td>
+              </tr>
+          </table>
+      </div>           
+
+      <div class="col-lg-6 pull-left">
+        <h4>Short list</h4>
+          <table class="artist-table">
+            <tr ng-repeat="artists in ShortListed" class="artists-shortlisted">
+                <td><b>name:</b> {{artists}} -</td>
+            </tr>
+          </table>
+      </div>      
+    </div>
+  </div>
+        
+</div>
+
+
+
