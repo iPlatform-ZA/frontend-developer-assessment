@@ -4,24 +4,6 @@
 /// <reference path="jquery.easing.js" />
 /// <reference path="bootstrap.min.js" />
 
-$(document).ready(function (e) {
-
-});
-
-function ArtistLoad() {
-    var term = localStorage.getItem('ArtistSearch');
-    if (term) {
-        SearchArtist(term);
-    }
-}
-
-function ReleaseLoad() {
-    var term = localStorage.getItem('ReleaseSearch');
-    if (term) {
-        SearchRelease(term);
-    }
-}
-
 //#region Global Objects
 var ArtistDetails = [];
 
@@ -39,7 +21,7 @@ function Artist(id, arid, name, commandtext) {
     //variable which stores the artist's short list li
     this.ShortList = '';
     this.CommandText = commandtext;
-    //A function which populates the searchresult property which my be used for DOM generation
+    //A function which populates the search result property which my be used for DOM generation
     this.PopulateListItem = function () {
         this.SearchResult = '<li><h4>' + this.Name + '</h4><button type="button" onclick="AddToSortedCollection(this)" value="' + this.ID + '" class="btn btn-default">' + this.CommandText + '</button></li>';
     };
@@ -72,7 +54,7 @@ function Release(id, year, title, label, trackcount, reid, arid) {
     this.ReleaseInfo = '';
 
     this.PopulateSearchResult = function () {
-        this.SearchResult = '<li><h4>' + this.Title + '</h4><button type="button" onclick="AddToSortedCollection(this)" value="'+ this.ID +'" class="btn btn-default">Show Releases</button></li>';
+        this.SearchResult = '<li><h4>' + this.Title + '</h4><button type="button" onclick="AddToSortedCollection(this)" value="' + this.ID + '" class="btn btn-default">Show Releases</button></li>';
     };
 
     this.PopulateReleaseInfo = function () {
@@ -87,6 +69,42 @@ function Release(id, year, title, label, trackcount, reid, arid) {
     };
 }
 //#endregion
+
+$(document).ready(function (e) {
+
+});
+
+function ArtistLoad() {
+    var term = localStorage.getItem('ArtistSearch');
+    if (term) {
+        SearchArtist(term);
+    }
+}
+
+function ReleaseLoad() {
+    var term = localStorage.getItem('ReleaseSearch');
+    if (term) {
+        SearchRelease(term);
+    }
+}
+
+function FavoritesLoad() {
+    FavoriteArtists = $.parseJSON(localStorage.getItem('FavoriteArtists'));
+
+    for (var i = 0; i < FavoriteArtists.length; i++) {
+        $('#ArtistFavorite').append(FavoriteArtists[i].ShortList);
+    }
+
+    var lis = $('#ArtistFavorite li button');
+    lis.each(function (i, e) {
+        if ($(e).hasClass('Favorite')) {
+            //$(e).removeClass('Favorite');
+            $(e).addClass('FavoriteGreen');
+        }
+    })
+
+}
+
 
 
 //#region control events
@@ -137,7 +155,7 @@ function AddToSortedCollection(e) {
 
                 //get release info per arid
                 SearchReleaseController(ArtistDetails[e.value].Arid);
-                
+
             }
                 break;
             case 'Add to short list': {
@@ -157,6 +175,8 @@ function MarkAsFavorite(e) {
         $(e).addClass('FavoriteGreen');
         FavoriteArtists.push(ArtistDetails[e.value]);
     }
+
+    localStorage.setItem('FavoriteArtists', JSON.stringify(FavoriteArtists));
 };
 
 function DeleteFavorite(e) {
@@ -181,6 +201,7 @@ function SearchRelease(term) {
     //}
 }
 
+//#endregion
 //#endregion
 
 //#region Service Controllers
@@ -301,29 +322,6 @@ function SearchReleaseController(arid) {
     });
     //alert('Release count: ' + TempReleaseDetail.length);
 }
-//#endregion
-
-//#region service requests
-//function GetArtistDetails(artist) {
-//    var URL = "http://musicbrainz.org/ws/2/artist/?query=artist:" + artist + "&fmt=json";
-
-//    $.ajax({
-//        url: URL,
-//        type: "GET",
-//        dataType: "json",
-//        success: function (data) {
-//            var foo = (data);
-//            $.each(obj, function (key, val) {
-
-//            });
-//            alert(foo);
-//            return foo;
-//        },
-//        error: function (ex) {
-//            alert("Error could not get data " + ex);
-//        }
-//    });
-//}
 //#endregion
 
 //#region Helper Functions
