@@ -6,10 +6,11 @@
     color: rgba(0,255,0,0) !important;
 }
 
-#Home{
-    height:100vh;
-    margin-bottom:0px !important;
+#Home {
+    height: 100vh;
+    margin-bottom: 0px !important;
 }
+
 .jumbotron {
     color: snow;
     height: 100vh;
@@ -116,10 +117,10 @@
             float: right;
         }
 
-        .resultlists h4{
-            text-wrap:normal;
-            max-width:60%;
-        }
+    .resultlists h4, .resultlists h5 {
+        text-wrap: normal;
+        max-width: 60%;
+    }
 
 .Delete, .Favorite {
     background-color: white;

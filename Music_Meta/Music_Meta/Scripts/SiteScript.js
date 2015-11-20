@@ -27,7 +27,7 @@ var ArtistDetails = [];
 
 var FavoriteArtists = [];
 //An object contain the Artist details
-function Artist(id, arid, name,commandtext) {
+function Artist(id, arid, name, commandtext) {
     //ID used for iteration and identification
     this.ID = id;
     //Unique artist id
@@ -41,7 +41,7 @@ function Artist(id, arid, name,commandtext) {
     this.CommandText = commandtext;
     //A function which populates the searchresult property which my be used for DOM generation
     this.PopulateListItem = function () {
-        this.SearchResult = '<li><h4>' + this.Name + '</h4><button type="button" onclick="AddToShortList(this)" value="' + this.ID + '" class="btn btn-default">' + this.CommandText +'</button></li>';
+        this.SearchResult = '<li><h4>' + this.Name + '</h4><button type="button" onclick="AddToSortedCollection(this)" value="' + this.ID + '" class="btn btn-default">' + this.CommandText + '</button></li>';
     };
 
     //A function which populates the short list property which maybe used for DOM generation
@@ -72,11 +72,18 @@ function Release(id, year, title, label, trackcount, reid, arid) {
     this.ReleaseInfo = '';
 
     this.PopulateSearchResult = function () {
-        this.SearchResult = '<li><h4>' + this.Title + '</h4><button type="button" onclick="AddToShortList(this)" value="' + this.ID + '" class="btn btn-default">Show Releases</button></li>';
+        this.SearchResult = '<li><h4>' + this.Title + '</h4><button type="button" onclick="AddToSortedCollection(this)" value="'+ this.ID +'" class="btn btn-default">Show Releases</button></li>';
     };
 
     this.PopulateReleaseInfo = function () {
+        this.ReleaseInfo = '<li><h4>' + this.Year + ' - ' + title + ' - ' + this.Label + ' - ' + trackcount + ' Tracks' + '</h4>'
+            + '<button onclick="DeleteFavorite(this)" class="Delete" type="button" value="' + this.ID + '">'
+            + '<span>'
+            + '<i class="glyphicon glyphicon-remove"></i></span></button>'
 
+            + '<button onclick="MarkAsFavorite(this)" class="Favorite" type="button" value="' + this.ID + '" >'
+            + '<span>'
+            + '<i class="glyphicon glyphicon-star"></i></span></button>';
     };
 }
 //#endregion
@@ -87,7 +94,7 @@ function Release(id, year, title, label, trackcount, reid, arid) {
 function SearchArtist(term) {
     if ($.trim(term)) {
         $('#txtArtistSearch').val('');
-        SearchArtistController(term, $('#SearchResults'),'Add to short list');
+        SearchArtistController(term, $('#SearchResults'), 'Add to short list');
         ClearSearch();
     }
     else {
@@ -119,8 +126,26 @@ function ReleaseHomeSearch(e, term) {
     }
 }
 
-function AddToShortList(e) {
-    $('#ArtistShortList').append(ArtistDetails[e.value].ShortList);
+function AddToSortedCollection(e) {
+
+    if (e != null || e != undefined) {
+        switch (e.innerText) {
+            case 'Show releases': {
+                //Clear
+                $('#ReleaseDetails').empty();
+                //localStorage.removeItem('ReleaseDetails');
+
+                //get release info per arid
+                SearchReleaseController(ArtistDetails[e.value].Arid);
+                
+            }
+                break;
+            case 'Add to short list': {
+                $('#ArtistShortList').append(ArtistDetails[e.value].ShortList);
+            }
+                break;
+        }
+    }
 };
 
 function MarkAsFavorite(e) {
@@ -147,7 +172,7 @@ function DeleteFavorite(e) {
 function SearchRelease(term) {
     //if ($.trim(term)) {
     $('#txtSearchRelease').val('');
-    SearchArtistController(term, $('#ReleaseResults'),'Show releases');
+    SearchArtistController(term, $('#ReleaseResults'), 'Show releases');
     //SearchReleaseController(term);
     ClearSearch();
     //}
@@ -159,7 +184,7 @@ function SearchRelease(term) {
 //#endregion
 
 //#region Service Controllers
-function SearchArtistController(artist, targetedul,commandtext) {
+function SearchArtistController(artist, targetedul, commandtext) {
     ArtistDetails = [];
 
     ShowLoader(1);
@@ -174,7 +199,7 @@ function SearchArtistController(artist, targetedul,commandtext) {
         success: function (data) {
             $.each(data, function (key, val) {
                 for (var i = 0; i < data.artists.length; i++) {
-                    var foo = new Artist(i, data.artists[i]["id"], data.artists[i]["name"],commandtext);
+                    var foo = new Artist(i, data.artists[i]["id"], data.artists[i]["name"], commandtext);
                     foo.PopulateListItem();
                     foo.PopulateShortList();
                     ArtistDetails.push(foo);
@@ -191,11 +216,10 @@ function SearchArtistController(artist, targetedul,commandtext) {
     });
 };
 
-function SearchReleaseController(term) {
+function SearchReleaseController(arid) {
     ReleaseDetails = [];
     ShowLoader(1);
-    $('#ReleaseResults').empty();
-    var URL = "http://musicbrainz.org/ws/2/release/?query=artistname:" + term + "&fmt=json";
+    var URL = "http://musicbrainz.org/ws/2/release/?query=arid:" + arid + "&fmt=json";
 
     $.ajax({
         url: URL,
@@ -251,9 +275,9 @@ function SearchReleaseController(term) {
 
                     var temp = new Release(i, date, title, label, trackcount, reid, arid);
                     temp.PopulateSearchResult();
-
+                    temp.PopulateReleaseInfo();
                     ReleaseDetails.push(temp);
-                    $('#ReleaseResults').append(temp.SearchResult);
+                    $('#ReleaseDetails').append(temp.ReleaseInfo);
                     //foo.PopulateShortList();
 
 
@@ -262,13 +286,13 @@ function SearchReleaseController(term) {
                     //foo.PopulateShortList();
                     //ArtistDetails.push(foo);
                     //$('#SearchResults').append(foo.SearchResult);
-
-
                 }
             });
 
-            localStorage.setItem('ReleaseDetails', ReleaseDetails);
             ShowLoader(0);
+            return ReleaseDetails;
+
+            //localStorage.setItem('ReleaseDetails', ReleaseDetails);
         },
         error: function (ex) {
             ShowLoader(0);
