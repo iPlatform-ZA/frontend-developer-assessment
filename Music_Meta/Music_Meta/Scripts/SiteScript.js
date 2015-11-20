@@ -91,18 +91,19 @@ function ReleaseLoad() {
 function FavoritesLoad() {
     FavoriteArtists = $.parseJSON(localStorage.getItem('FavoriteArtists'));
 
-    for (var i = 0; i < FavoriteArtists.length; i++) {
-        $('#ArtistFavorite').append(FavoriteArtists[i].ShortList);
+    if (FavoriteArtists != null) {
+        for (var i = 0; i < FavoriteArtists.length; i++) {
+            $('#ArtistFavorite').append(FavoriteArtists[i].ShortList);
+        };
+
+        var lis = $('#ArtistFavorite li button');
+        lis.each(function (i, e) {
+            if ($(e).hasClass('Favorite')) {
+                //$(e).removeClass('Favorite');
+                $(e).addClass('FavoriteGreen');
+            }
+        });
     }
-
-    var lis = $('#ArtistFavorite li button');
-    lis.each(function (i, e) {
-        if ($(e).hasClass('Favorite')) {
-            //$(e).removeClass('Favorite');
-            $(e).addClass('FavoriteGreen');
-        }
-    })
-
 }
 
 
