@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Music_Meta</title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/SiteStyle.css" rel="stylesheet" />
+</head>
+<body onload="ArtistLoad()">
+    <nav id="Navigation" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a href="defualt.html">Home</a>
+                    </li>
+                    <li class="active">
+                        <a href="Artist.html">Lasf.fm</a>
+                    </li>
+                    <li>
+                        <a href="Release.html">MusicBrainz</a>
+                    </li>
+                    <li>
+                        <a href="Favorite.html">Favorites</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="Loader" class="loading">
+        <div>
+            <img alt="loading" src="Images/Loader.gif" />
+            <br />
+            <br />
+            <p>Searching. . .</p>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="input-group col-lg-offset-6 col-lg-pull-3">
+                    <input id="txtArtistSearch" type="text" class="form-control" placeholder="Search for artist">
+                    <span class="input-group-btn">
+                        <button onclick="SearchArtist(txtArtistSearch.value)" class="btn btn-default" type="button">Search</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="Results" class="row">
+            <div class="col-lg-5">
+                <h1>Search Results</h1>
+                <br />
+                <div class="qc">
+                    <ul id="SearchResults" class="resultlists"></ul>
+                </div>
+            </div>
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-5">
+                <h1>Short List</h1>
+                <br />
+                <div class="qc">
+                    <ul id="ArtistShortList" class="resultlists"></ul>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <div class="modal fade" id="NotificationDialog" tabindex="-1" role="dialog" aria-labelledby="FeedbackModallabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="MessageHeader"></h4>
+                    </div>
+                    <div class="modal-body" style="height: 20vh;">
+                        <p id="pMessage" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/SiteScript.js"></script>
+</body>
+</html>
