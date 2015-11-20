@@ -46,9 +46,9 @@
             <p>Search music databases for your artists and releases</p>
             <br />
             <div class="input-group col-lg-offset-6 col-lg-pull-3">
-                <input id="txtHeaderSearch" type="text" class="form-control" placeholder="Enter Artist Name">
+                <input id="txtHomeArtistSearch" type="text" class="form-control" placeholder="Enter Artist Name">
                 <span class="input-group-btn">
-                    <a id="aHeaderSearch" class="btn btn-default">
+                    <a onclick="ArtistHomeSearch(this,txtHomeArtistSearch.value)" id="aHeaderSearch" class="btn btn-default">
                         Search Artists
                     </a>
                 </span>
@@ -57,9 +57,9 @@
             <p> - OR -</p>
             <br />
             <div class="input-group col-lg-offset-6 col-lg-pull-3">
-                <input id="txtHeaderSearch" type="text" class="form-control" placeholder="Enter Artist Name">
+                <input id="txtHomeReleaseSearch" type="text" class="form-control" placeholder="Enter Artist Name">
                 <span class="input-group-btn">
-                    <a id="aHeaderSearch" class="btn btn-default">
+                    <a onclick="ReleaseHomeSearch(this,txtHomeReleaseSearch.value)" id="aHeaderSearch" class="btn btn-default">
                         Search Releases
                     </a>
                 </span>

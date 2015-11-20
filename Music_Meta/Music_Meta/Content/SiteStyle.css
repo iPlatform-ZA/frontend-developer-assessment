@@ -116,6 +116,11 @@
             float: right;
         }
 
+        .resultlists h4{
+            text-wrap:normal;
+            max-width:60%;
+        }
+
 .Delete, .Favorite {
     background-color: white;
     border: 0px;

@@ -6,7 +6,7 @@
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/SiteStyle.css" rel="stylesheet" />
 </head>
-<body>
+<body onload="ReleaseLoad()">
     <nav id="Navigation" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header page-scroll">
@@ -55,9 +55,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="input-group col-lg-offset-6 col-lg-pull-3">
-                    <input id="txtArtistSearch" type="text" class="form-control" placeholder="Search for release">
+                    <input id="txtSearchRelease" type="text" class="form-control" placeholder="Search for artist">
                     <span class="input-group-btn">
-                        <button onclick="SearchArtist(txtArtistSearch.value)" class="btn btn-default" type="button">Search</button>
+                        <button onclick="SearchRelease(txtSearchRelease.value)" class="btn btn-default" type="button">Search</button>
                     </span>
                 </div>
             </div>
@@ -67,7 +67,14 @@
                 <h1>Search Results</h1>
                 <br />
                 <div class="qc">
-                    <ul id="SearchResults" class="resultlists"></ul>
+                    <ul id="ReleaseResults" class="resultlists">
+                        <!--<li>
+                            <h4>
+                                2009-09-04: BBC Radio 1's Live Lounge: London, UK
+                            </h4>
+                            <button type="button" onclick="AddToShortList(this)" class="btn btn-default">Add To Short List</button>
+                        </li>-->
+                    </ul>
                 </div>
             </div>
             <div class="col-lg-1">
@@ -76,7 +83,7 @@
                 <h1>Releases</h1>
                 <br />
                 <div class="qc">
-                    <ul id="ArtistShortList" class="resultlists"></ul>
+                    <ul id="ReleaseDetails" class="resultlists"></ul>
                 </div>
             </div>
         </div>
