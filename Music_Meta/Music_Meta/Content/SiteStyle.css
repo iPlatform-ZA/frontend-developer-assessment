@@ -163,9 +163,6 @@
     margin: 0px;
 }
 
-@media (min-width: 1200px) {
-}
-
 @media (min-width: 992px) and (max-width: 1199px) {
     .jumbotron .container {
         margin-top: 23%;
@@ -174,7 +171,7 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
     .jumbotron .container {
-        margin-top: 30%;
+        margin-top: 1%;
     }
 }
 
@@ -184,9 +181,4 @@
     }
 }
 
-/* Portrait phones and smaller */
-@media (max-width: 480px) {
-    .jumbotron .container {
-        margin-top: 90%;
-    }
 }
