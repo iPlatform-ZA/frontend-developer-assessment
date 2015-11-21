@@ -6,15 +6,18 @@
 
 //#region Global Objects
 var ArtistDetails = [];
+var ReleaseDetails = [];
 
 var FavoriteArtists = [];
+var FavoriteReleases = [];
+
 //An object contain the Artist details
 function Artist(id, arid, name, commandtext) {
     //ID used for iteration and identification
     this.ID = id;
     //Unique artist id
     this.Arid = arid;
-    //Artis name
+    //Artist name
     this.Name = name;
     //variable which stores the artist's search result li
     this.SearchResult = '';
@@ -29,11 +32,11 @@ function Artist(id, arid, name, commandtext) {
     //A function which populates the short list property which maybe used for DOM generation
     this.PopulateShortList = function () {
         this.ShortList = '<li><h4>' + this.Name + '</h4>'
-            + '<button onclick="DeleteFavorite(this)" class="Delete" type="button" value="' + this.ID + '">'
+            + '<button onclick="DeleteFavoriteArtist(this)" class="Delete" type="button" value="' + this.ID + '">'
             + '<span>'
             + '<i class="glyphicon glyphicon-remove"></i></span></button>'
 
-            + '<button onclick="MarkAsFavorite(this)" class="Favorite" type="button" value="' + this.ID + '" >'
+            + '<button onclick="AddFavoriteArtist(this)" class="Favorite" type="button" value="' + this.ID + '" >'
             + '<span>'
             + '<i class="glyphicon glyphicon-star"></i></span></button>';
     };
@@ -59,11 +62,11 @@ function Release(id, year, title, label, trackcount, reid, arid) {
 
     this.PopulateReleaseInfo = function () {
         this.ReleaseInfo = '<li><h4>' + this.Year + ' - ' + title + ' - ' + this.Label + ' - ' + trackcount + ' Tracks' + '</h4>'
-            + '<button onclick="DeleteFavorite(this)" class="Delete" type="button" value="' + this.ID + '">'
+            + '<button onclick="DeleteFavoriteRelease(this)" class="Delete" type="button" value="' + this.ID + '">'
             + '<span>'
             + '<i class="glyphicon glyphicon-remove"></i></span></button>'
 
-            + '<button onclick="MarkAsFavorite(this)" class="Favorite" type="button" value="' + this.ID + '" >'
+            + '<button onclick="AddFavoriteRelease(this)" class="Favorite" type="button" value="' + this.ID + '" >'
             + '<span>'
             + '<i class="glyphicon glyphicon-star"></i></span></button>';
     };
@@ -90,6 +93,7 @@ function ReleaseLoad() {
 
 function FavoritesLoad() {
     FavoriteArtists = $.parseJSON(localStorage.getItem('FavoriteArtists'));
+    FavoriteReleases = $.parseJSON(localStorage.getItem('FavoriteReleases'));
 
     if (FavoriteArtists != null) {
         for (var i = 0; i < FavoriteArtists.length; i++) {
@@ -99,14 +103,24 @@ function FavoritesLoad() {
         var lis = $('#ArtistFavorite li button');
         lis.each(function (i, e) {
             if ($(e).hasClass('Favorite')) {
-                //$(e).removeClass('Favorite');
+                $(e).addClass('FavoriteGreen');
+            }
+        });
+    }
+
+    if (FavoriteReleases != null) {
+        for (var i = 0; i < FavoriteReleases.length; i++) {
+            $('#ReleasesFavorite').append(FavoriteReleases[i].ReleaseInfo);
+        };
+
+        var lis = $('#ReleasesFavorite li button');
+        lis.each(function (i, e) {
+            if ($(e).hasClass('Favorite')) {
                 $(e).addClass('FavoriteGreen');
             }
         });
     }
 }
-
-
 
 //#region control events
 //#region Artists Search / Results
@@ -167,10 +181,11 @@ function AddToSortedCollection(e) {
     }
 };
 
-function MarkAsFavorite(e) {
+//Adds/removes favorite class to button, removes from collection and adds to local storage of an artist
+function AddFavoriteArtist(e) {
     if ($(e).hasClass('FavoriteGreen')) {
         $(e).removeClass('FavoriteGreen');
-        RemoveFavoriteArtist(e.value);
+        FavoriteArtists = RemoveItemFromCollection(FavoriteArtists, e.value);
     }
     else {
         $(e).addClass('FavoriteGreen');
@@ -180,26 +195,49 @@ function MarkAsFavorite(e) {
     localStorage.setItem('FavoriteArtists', JSON.stringify(FavoriteArtists));
 };
 
-function DeleteFavorite(e) {
+//Adds/removes favorite class to button, removes from collection and adds to local storage of a Release
+function AddFavoriteRelease(e) {
+    if ($(e).hasClass('FavoriteGreen')) {
+        $(e).removeClass('FavoriteGreen');
+        FavoriteReleases = RemoveItemFromCollection(FavoriteReleases, e.value);
+    }
+    else {
+        $(e).addClass('FavoriteGreen');
+        FavoriteReleases.push(ReleaseDetails[e.value]);
+    }
+
+    localStorage.setItem('FavoriteReleases', JSON.stringify(FavoriteReleases));
+};
+
+function DeleteFavoriteArtist(e) {
     if ($(e).parent().children([2]).hasClass('FavoriteGreen')) {
-        RemoveFavoriteArtist(e.value);
+        FavoriteArtists = RemoveItemFromCollection(FavoriteArtists, e.value);
     }
 
     $(e).parent().remove();
+    localStorage.setItem('FavoriteArtists', JSON.stringify(FavoriteArtists));
 };
+
+function DeleteFavoriteRelease(e) {
+    if ($(e).parent().children([2]).hasClass('FavoriteGreen')) {
+        FavoriteReleases = RemoveItemFromCollection(FavoriteReleases, e.value);
+    }
+
+    $(e).parent().remove();
+    localStorage.setItem('FavoriteReleases', JSON.stringify(FavoriteReleases));
+}
 //#endregion
 
 //#region Releases Search / Results
 function SearchRelease(term) {
-    //if ($.trim(term)) {
-    $('#txtSearchRelease').val('');
-    SearchArtistController(term, $('#ReleaseResults'), 'Show releases');
-    //SearchReleaseController(term);
-    ClearSearch();
-    //}
-    //else {
-    //    Notification("Hi, :)", "Artist name may not be blank. Please enter valid artist name.");
-    //}
+    if ($.trim(term)) {
+        $('#txtSearchRelease').val('');
+        SearchArtistController(term, $('#ReleaseResults'), 'Show releases');
+        ClearSearch();
+    }
+    else {
+        Notification("Hi, :)", "Artist name may not be blank. Please enter valid artist name.");
+    }
 }
 
 //#endregion
@@ -294,34 +332,21 @@ function SearchReleaseController(arid) {
                         arid = 'No id';
                     }
 
-
                     var temp = new Release(i, date, title, label, trackcount, reid, arid);
                     temp.PopulateSearchResult();
                     temp.PopulateReleaseInfo();
                     ReleaseDetails.push(temp);
                     $('#ReleaseDetails').append(temp.ReleaseInfo);
-                    //foo.PopulateShortList();
-
-
-                    //var foo = new Artist(i, data.releases[i]["id"], data.artists[i]["name"]);
-                    //foo.PopulateListItem();
-                    //foo.PopulateShortList();
-                    //ArtistDetails.push(foo);
-                    //$('#SearchResults').append(foo.SearchResult);
                 }
             });
 
             ShowLoader(0);
-            return ReleaseDetails;
-
-            //localStorage.setItem('ReleaseDetails', ReleaseDetails);
         },
         error: function (ex) {
             ShowLoader(0);
             alert("Error could not get data " + ex);
         }
     });
-    //alert('Release count: ' + TempReleaseDetail.length);
 }
 //#endregion
 
@@ -349,16 +374,16 @@ function ShowLoader(IsVisible) {
     }
 }
 
-function RemoveFavoriteArtist(index) {
+function RemoveItemFromCollection(arr, index) {
     var temp = [];
-    for (var i = 0; i < FavoriteArtists.length; i++) {
-        if (FavoriteArtists[i].ID != index) {
-            temp.push(FavoriteArtists[i]);
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].ID != index) {
+            temp.push(arr[i]);
         }
     }
 
-    FavoriteArtists = temp;
-    temp = [];
+    arr = temp;
+    return temp;
 }
 
 function ClearSearch() {
