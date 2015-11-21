@@ -71,8 +71,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bundle.css" />
+    <Content Include="Content\bundle.min.css">
+      <DependentUpon>bundle.css</DependentUpon>
+    </Content>
     <Content Include="Content\SiteStyle.css" />
-    <Content Include="defualt.html" />
+    <Content Include="Default.html" />
     <Content Include="Favorite.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\Header2.png" />
@@ -84,10 +88,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="bundleconfig.json" />
+    <None Include="Properties\PublishProfiles\MusicMeta - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\MusicMeta - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Release.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bundle.js" />
+    <Content Include="Scripts\bundle.min.js">
+      <DependentUpon>bundle.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
@@ -99,6 +110,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\SiteScript.js" />
     <Content Include="Web.config" />
   </ItemGroup>

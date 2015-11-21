@@ -11,6 +11,10 @@
     margin-bottom: 0px !important;
 }
 
+.cntr {
+    text-align: center;
+}
+
 .jumbotron {
     color: snow;
     height: 100vh;
@@ -162,21 +166,18 @@
 @media (min-width: 1200px) {
 }
 
-/* Landscape tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
     .jumbotron .container {
         margin-top: 23%;
     }
 }
 
-/* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
     .jumbotron .container {
         margin-top: 30%;
     }
 }
 
-/* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
     .jumbotron .container {
         margin-top: 45%;

@@ -1,7 +1,6 @@
 ﻿/// <reference path="jquery-1.9.1.min.js" />
 /// <reference path="jquery-1.9.1.intellisense.js" />
 /// <reference path="response.min.js" />
-/// <reference path="jquery.easing.js" />
 /// <reference path="bootstrap.min.js" />
 
 //#region Global Objects
@@ -42,6 +41,7 @@ function Artist(id, arid, name, commandtext) {
     };
 };
 
+//An object which contain the Release details
 function Release(id, year, title, label, trackcount, reid, arid) {
     this.ID = id;
     //unique artist id
@@ -73,10 +73,7 @@ function Release(id, year, title, label, trackcount, reid, arid) {
 }
 //#endregion
 
-$(document).ready(function (e) {
-
-});
-
+//#region Page Load Events
 function ArtistLoad() {
     var term = localStorage.getItem('ArtistSearch');
     if (term) {
@@ -121,6 +118,7 @@ function FavoritesLoad() {
         });
     }
 }
+//#endregion
 
 //#region control events
 //#region Artists Search / Results
@@ -166,11 +164,9 @@ function AddToSortedCollection(e) {
             case 'Show releases': {
                 //Clear
                 $('#ReleaseDetails').empty();
-                //localStorage.removeItem('ReleaseDetails');
 
                 //get release info per arid
                 SearchReleaseController(ArtistDetails[e.value].Arid);
-
             }
                 break;
             case 'Add to short list': {
@@ -244,7 +240,18 @@ function SearchRelease(term) {
 //#endregion
 
 //#region Service Controllers
+//A function which contains the Ajax request call to MusicBrainz which retrieves the artist details
 function SearchArtistController(artist, targetedul, commandtext) {
+    //##################################################################################################################################################
+    //DEVELOPERS NOTE
+    //At time of build the Last.fm API is "unavailable" see their site http://www.last.fm/api 
+    //I created an yet the site does not allow me to generate an API key
+    //I understand this part is to test the candidate logic when implementing oauth authentication however i would not advise storing API keys on client
+    //,rather use some server side logic ASP.NET || PHP || Web API
+    //I Have done this with the Twitter and facebook APIs using either 3rd party API or AJAX auth in C#
+    //DEVELOPERS NOTE
+    //##################################################################################################################################################
+
     ArtistDetails = [];
 
     ShowLoader(1);
@@ -276,6 +283,7 @@ function SearchArtistController(artist, targetedul, commandtext) {
     });
 };
 
+//A function which retrieves the release from MusicBrainz per arid
 function SearchReleaseController(arid) {
     ReleaseDetails = [];
     ShowLoader(1);
@@ -381,7 +389,6 @@ function RemoveItemFromCollection(arr, index) {
             temp.push(arr[i]);
         }
     }
-
     arr = temp;
     return temp;
 }
