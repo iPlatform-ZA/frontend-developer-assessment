@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Last.fm", "Index", "LastFm", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("MusicBrainz", "Index", "MusicBrainz", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("Favourites", "Index", "Favourite", new { area = "" }, null)</li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

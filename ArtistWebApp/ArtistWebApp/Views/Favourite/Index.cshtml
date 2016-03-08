@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Scripts/MyCss/MyStyle.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/ngStorage.min.js"></script>
+<script src="~/Scripts/MyScripts/Favourites.js"></script>
+
+<h1>&nbsp</h1>
+<div ng-app="ngmodule">
+    <div ng-controller="ngcontroller">
+        <div class="lists" >
+          <ul class="list" title="Favourite Artists">
+            <li class="item" ng-repeat="artist in Artists" >
+                <span class="item-contents" ng-animate-ref="{{ artist.mbid }}">{{ artist.name }}</span>
+                <a href="" class="moveLink" ng-click="removeFromArtistStorage(artist)">Remove from favourite</a>
+            </li>
+          </ul>
+          <ul class="list2" title="Favourite Releases">
+            <li class="item" ng-repeat="release in Releases" >
+                <span class="item-contents">{{ release.date }} - {{release.title}} - {{release["label-info-list"]["label-info"]["label"].name}} - {{release["medium-list"]["track-count"]}} Tracks</span>
+                <a href="" class="moveLink" ng-click="removeFromReleaseStorage(release)">Remove from favourite</a>
+            </li>
+          </ul>
+        </div>
+
+     
+        <span>{{Message}}</span>
+    </div>
+    
+</div>
+
