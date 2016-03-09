@@ -1,0 +1,16 @@
+#WebApp (Client Side)
+
+##Deployment:
+1. Deploy the webapp onto IIS. 
+
+##Technologies:
+AngularJS 1.5.0, MVC 4
+
+##Additional packages/references:
+xml2json(javascript file inclusion), 
+ngStorage.min ()javascript file inclusion)
+
+
+##Uncompleted tasks:
+1. Favourite icon is not available. 'Add to favourite' and 'Remove to favourite' links have been supplied.
+2. Unit tests
