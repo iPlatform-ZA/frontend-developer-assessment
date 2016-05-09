@@ -10,7 +10,12 @@ namespace ArtistWeb.Controllers
             return View();
         }
 
-        public ActionResult Search()
+        public ActionResult SearchArtist()
+        {
+            return View();
+        }
+
+        public ActionResult SearchRelease()
         {
             return View();
         }

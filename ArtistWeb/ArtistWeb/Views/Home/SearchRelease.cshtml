@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+<div ng-controller="SearchReleaseController">
+    <h2>Search</h2>
+
+    <form class="form-inline" ng-submit="search()">
+        <div class="form-group">
+            <label class="control-label">Artist Name</label>
+            <input type="text" ng-model="form.search" class="form-control" placeholder="Search..." />
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Search Results</h3>
+            <i>click item to show releases</i>
+            <div class="list-group">
+                <a href="#" class="list-group-item" ng-repeat="result in searchResults" ng-click="showReleases(result)">
+                    {{ result.name }}                    
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Releases</h3>
+            <i>click release to favourite it</i>
+            <div class="list-group">
+                <a href="#" class="list-group-item" ng-repeat="release in releases" ng-click="addFavouriteRelease(release)">
+                    {{ release.title }} - {{ release.year }} - {{ release.label }} - {{ release.trackCount }} tracks
+                    <i class="fa fa-star pull-right" style="color:#FFC107" ng-show="release.isFavourite"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/app/ArtistWebModule.js"></script>
+    <script src="~/Scripts/app/favouriteService.js"></script>
+    <script type="text/javascript">
+        angular
+            .module("ArtistWeb")
+            .controller("SearchReleaseController",
+                ["$scope", "searchReleaseService", "favouriteService", function ($scope, searchReleaseService, favouriteService) {
+                    $scope.searchResults = [];
+                    //$scope.shortlist = [];
+                    //$scope.favouriteAritsts = favouriteService.getFavouriteArtists();
+
+                    $scope.form = {
+                        search: ""
+                    };
+
+                    $scope.search = function () {
+                        searchReleaseService.searchArtist($scope.form.search)
+                            .then(function (dataResponse) {
+                                console.log(dataResponse);
+
+                                var data = dataResponse.data;
+                                var results = data.artists;
+
+                                applyResults(results);
+                            })
+                    };
+
+                    $scope.showReleases = function (result) {
+                        searchReleaseService.getArtistReleases(result.id)
+                            .then(function (dataResponse) {
+                                console.log(dataResponse);
+
+                                var data = dataResponse.data;
+                                var releaseResults = [];
+
+                                angular.forEach(data.releases, function (release) {
+                                    var releaseResult = { };
+
+                                    releaseResult.id = release.id;
+                                    releaseResult.title = release.title;
+                                    releaseResult.isFavourite = favouriteService.containsRelease(release.id);
+
+                                    releaseResult.year = release.date !== undefined ? release.date.substr(0, 4) : "year unknown";
+
+                                    releaseResult.label = "No label";
+                                    var labelInfo = release["label-info"];
+                                    
+                                    if (labelInfo !== undefined && labelInfo.length > 0) {
+                                        releaseResult.label = labelInfo[0].label.name;
+                                    }
+
+                                    releaseResult.trackCount = 0;
+                                    var media = release.media;
+
+                                    if (media !== undefined && media.length > 0) {
+                                        releaseResult.trackCount = media["track-count"];
+                                    }
+
+                                    releaseResults.push(releaseResult);
+                                });
+
+                                applyReleases(releaseResults);
+                            });
+                    };
+
+                    $scope.addFavouriteRelease = function (release) {
+                        console.log(release);
+
+                        favouriteService.addFavouriteRelease(release);
+
+                        release.isFavourite = true;
+                    };
+
+                    function applyResults(results) {
+                        $scope.searchResults = results;
+                    };
+
+                    function applyReleases(releases) {
+                        $scope.releases = releases;
+                    }
+                }]);
+
+        angular
+            .module("ArtistWeb")
+            .service("searchReleaseService",
+                function ($http, $q) {
+
+                    return ({
+                        searchArtist: searchArtist,
+                        getArtistReleases: getArtistReleases
+                    });
+
+                    function searchArtist(search) {
+                        return $http({
+                            method: "GET",
+                            url: "http://musicbrainz.org/ws/2/artist",
+                            params: {
+                                query: search,
+                                fmt: "json"
+                            }
+                        });
+                    }
+
+                    function getArtistReleases(artistId) {
+                        return $http({
+                            method: "GET",
+                            url: "http://musicbrainz.org/ws/2/release/",
+                            params: {
+                                artist: artistId,
+                                inc: "labels+recordings",
+                                fmt: "json"
+                            }
+                        });
+                    }
+                });
+    </script>
+}
