@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html>              <!-- always start with the html tag-->
+    <head>
+        <meta charset="utf-8">
+        <meta name = "viewport" content="width=device-width, initial-scale=1">   <!-- this allows the screen of the page to be the same as the screen of the device -->
+
+        <title>Music4U - Your Music Choice - Home Page</title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src = "https://code.jquery.com/jquery-1.10.2.js"> </script>
+
+        <style>
+              .nav {
+                  border:2px solid cornflowerblue;
+                  padding-top:10px;
+                  padding-bottom:10px;
+                  margin-top:10px;
+                  margin-bottom:10px;
+              }  
+              .button {
+                  
+              }
+              
+              #lastFM {
+                  
+              }
+              #searchID{
+                width:100%;
+              }
+        </style>
+    </head>
+    <body>
+        <div class = "text-center" style = "background-color: powderblue">
+            <h1>Music4u <small> See what I did there?</small> </h1>
+                <blockquote> 
+                    <p>"Music is Better than People" </p>
+                    <footer>Someone Smart,1955"</footer>
+                </blockquote>
+        </div>
+        
+        <div class = "container">
+            <!-- Navigations Tab-->
+            <div class = "row"> 
+                <div class = "col-sm-4">
+                     <h3>Last.fm</h3>
+                     <p> Lets fo take a look into Last.fms Database... theres no other choise really</p>
+                     <p>So far we are only searching Last.fm.</p>
+
+                </div>
+                
+                <div class = "col-sm-4">
+                    <h3> Music Brains</h3>
+                    <p> Now this is meant to be something special but however unstable... therefore for now I am just going to keep away from this website but as soon as it looks like it is working I will happily add it in</p>
+                    <p> No Option to search MusicBrainz, but just wait</p>
+                </div>
+                
+                <div class = "col-sm-4"> 
+                    <h3> Favourites </h3>
+                    <p> Here we store all you favourites. </p>
+                    <p> Insert Button Here</p>
+
+                </div>
+            </div>
+            
+            <div class = "row" style = "margin:25px"> 
+                <div class = "col-sm-2">
+                      
+                </div>
+                
+                <div class = "col-sm-8">
+                    <div class = "span12">
+                         <input id = "searchInput" style = "width:80%"> </input>
+                         <button id ="searchButton" onclick = "loadXMLDoc()" type = "button" class = "btn">Search</button>
+                    </div>
+                </div>
+
+                <div class = "col-sm-2">
+                </div>
+
+                
+                
+            </div>
+        </div>
+        <table id="demo"></table>
+        
+   
+        <script>
+            
+            var lastState = 1; 
+            var searchButton = document.getElementById("searchButton");
+            var lastfmAPI = "6bd9ecc58c958fd3676a6e075dd2ceb4";
+
+            searchButton.innerHTML = "1";
+
+            // function test(data) {
+            //  // taking care of data
+            // }
+
+            // function handler() {
+            //  if(this.readyState == 4 && this.status == 200) {
+            //   // so far so good
+            //   if(this.responseXML != null && this.responseXML.getElementById('test').firstChild.data)
+            //      // success!
+            //    test(this.responseXML.getElementById('test').firstChild.data);
+            //   else
+            //    test(null);
+            //  } else if (this.readyState == 4 && this.status != 200) {
+            //   // fetched the wrong page or network error...
+            //   test(null);
+            //  }
+            // }
+            //step 1; load the doc
+            function loadXMLDoc() {
+              searchButton.innerHTML = "2";
+
+              var xmlhttp = new XMLHttpRequest();
+              xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                  myFunction(xmlhttp);
+                }
+              };
+
+              searchButton.innerHTML = "3";
+              searchInput = document.getElementbyId("searchInput");
+
+              xmlhttp.open("GET", "hhttp://ws.audioscrobbler.com/2.0/?method=artist.search&artist="searchInput"&api_key=6bd9ecc58c958fd3676a6e075dd2ceb4", true); //Need to place The proper source here...
+              xmlhttp.send();
+
+              searchButton.innerHTML = "4";
+            }
+
+
+            function myFunction(xml) {
+              var i;
+              var xmlDoc = xml.responseXML;
+
+              searchButton.innerHTML = "5";
+
+              var table="<tr><th>Artist</th></tr>";
+              var x = xmlDoc.getElementsByTagName("artist")
+              for (i = 0; i <x.length; i++) { 
+                table += "<tr><td>" +
+                x[i].getElementsByTagName("artist")[0].childNodes[0].nodeValue + "</td></tr>";
+              }
+              document.getElementbyId("demo").innerHTML = table;
+            }
+
+
+            
+
+
+            
+            
+            
+            
+        </script>
+        
+     </body>
+    
