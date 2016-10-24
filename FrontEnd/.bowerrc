@@ -1,0 +1,15 @@
+{
+  "directory": "./app/libs",
+  "timeout": 60000,
+  "save": true,
+  "save-exact": true,
+  "storage": {
+    "packages" : "~/.bower/packages",
+    "registry" : "~/.bower/registry",
+    "links" : "~/.bower/links"
+  },
+  "interactive": true,
+  "ignoredDependencies": [
+    "jquery"
+  ]
+}

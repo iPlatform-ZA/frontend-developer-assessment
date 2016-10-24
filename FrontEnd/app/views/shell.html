@@ -1,0 +1,59 @@
+﻿<header id="header">
+
+	<h1 id="site-logo">
+		<a href="./index.html">
+			<i class="fa fa-music"></i>
+			<span>Musica</span></a>
+	</h1>
+
+	<a href="javascript:;" data-toggle="collapse" data-target=".top-bar-collapse" id="top-bar-toggle" class="navbar-toggle collapsed">
+		<i class="fa fa-cog"></i>
+	</a>
+
+	<a href="javascript:;" data-toggle="collapse" data-target=".sidebar-collapse" id="sidebar-toggle" class="navbar-toggle collapsed">
+		<i class="fa fa-reorder"></i>
+	</a>
+
+</header>
+<!-- header -->
+<nav id="top-bar" class="collapse top-bar-collapse">
+
+	<ul class="nav navbar-nav pull-left">
+		<li class="">
+			<a href="./index.html">
+				<i class="fa fa-home"></i> Home
+			</a>
+		</li>
+
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+		        	Quick Links <span class="caret"></span>
+		</a>
+
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#last"><i class="fa fa-user"></i>&nbsp;&nbsp;last.fm</a></li>
+				<li><a href="#brainz"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Brainz  music</a></li>
+				<li class="divider"></li>
+				<li><a href="#favourites"><i class="fa fa-tasks"></i>&nbsp;&nbsp;Favourites</a></li>
+			</ul>
+		</li>
+
+	</ul>
+</nav>
+<!-- /#top-bar -->
+<div id="sidebar-wrapper" class="collapse sidebar-collapse">
+	<nav id="sidebar">
+		<ul id="main-nav" class="open-active" data-bind="foreach: router.navigationModel">
+			<li data-bind="css: { active: isActive }">
+				<a data-bind="attr: { href: hash}"><i data-bind="css: hclass"></i><span data-bind="text:title"></span></a>
+			</li>
+		</ul>
+	</nav>
+	<div class="loader pull-left" data-bind="css: { active: router.isNavigating }">
+		<i class="icon-spinner icon-2x icon-spin"></i>
+	</div>
+</div>
+
+<div class="page-host" data-bind="router: { transition: 'entrance', cacheViews: false }">
+</div>
+<div class="ContentClear"></div>
