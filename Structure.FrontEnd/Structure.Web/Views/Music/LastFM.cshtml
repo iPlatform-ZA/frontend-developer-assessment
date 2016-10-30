@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Last FM Search";
+}
+<h2>Last.FM Search</h2>
+<link href="~/DataTables/DataTables-1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/DataTables/Select-1.2.0/css/select.bootstrap.min.css" rel="stylesheet" />
+<link href="~/DataTables/Buttons-1.2.2/css/buttons.bootstrap.min.css" rel="stylesheet" />
+<div class="panel panel-default">
+    <div class="panel-body col-md-offset-4">
+        <div class="form-group">
+            <label class="control-label">Search for an artist </label>
+            <input type="text" class="form-control" data-bind="value: searchQuery" placeholder="Artist name " />
+        </div>
+        <div class="form-group ">
+            <button data-bind="click: searchButton" class="btn btn-success">Search</button>
+        </div>
+    </div>
+
+    <div class="artistSearchGrid">
+        <div class="panel panel-body">
+            <table id="artistSearchGrid" class="table table-responsive">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <strong>Name</strong>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: searchResults">
+                    <tr data-bind="attr:{id: id}">
+                        <td>
+                            <img class="img-responsive" data-bind="attr:{src: imageUrl}" />
+                        </td>
+                        <td data-bind="text: name"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/DataTables/DataTables-1.10.12/js/jquery.dataTables.js"></script>
+    <script src="~/DataTables/DataTables-1.10.12/js/dataTables.bootstrap.js"></script>
+    <script src="~/DataTables/Select-1.2.0/js/dataTables.select.min.js"></script>
+    <script src="~/DataTables/Buttons-1.2.2/js/dataTables.buttons.min.js"></script>
+    <link href="~/DataTables/Buttons-1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Music/LastFM.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            @{
+                var model = new
+                {
+                    lastFmBaseUrl = "http://ws.audioscrobbler.com/2.0/",
+                    lastFMAPIKey = "eaf2ec283d0a3c71e471e62c93c08d6b"    ,
+                    lastFMDataFormat = "json"     ,
+                    lastFMSearchMethod = "artist.search",
+                    shortListUrl = Url.Action("ShortLists","Music")
+
+                };
+        }
+            var model = @Html.Raw(Json.Encode(model));
+            ko.applyBindings(new viewModel(model));
+        });
+
+    </script>
+}
