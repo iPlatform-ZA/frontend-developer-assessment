@@ -1,0 +1,11 @@
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+node_modules/
+
+# ignore js and map files
+**/*.map
+# ignore app js files
+Frontend_Assessment/app/**/*.js

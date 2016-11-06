@@ -1,0 +1,41 @@
+<html lang="en">
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a routerLink="/musicbrainz">MusicBrainz</a>
+                    </li>
+                    <li>
+                        <a routerLink="/lastfm"><i class="lastfm-icon fa fa-lastfm" aria-hidden="true"></i>Last.fm</a>
+                    </li>
+                    <li>
+                        <a routerLink="/favourites"><i class="favourite-icon fa fa-star" aria-hidden="true"></i>Favourites</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</body>
+
+</html>

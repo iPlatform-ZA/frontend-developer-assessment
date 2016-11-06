@@ -1,0 +1,88 @@
+<html lang="en">
+
+<body class="container-body">
+    <div class="container-div">
+        <h1>Favourites</h1>
+        <div *ngIf="hasFavourites">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <span><b>Artist Name</b></span>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let favourite of favourites">
+                    <tr>
+                        <td>
+                            <a (click)="removeFavourite(favourite)">
+                                <i aria-hidden="true" class="list-remove fa fa-minus-circle"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <span>{{favourite.Name}}</span>
+                        </td>
+                        <td style="text-align:center">
+                            <a class="release-link" (click)="showReleases(favourite)">{{!favourite.$Hidden ? "Hide releases" : "Show releases"}}</a>
+                        </td>
+                    </tr>
+                    <tr [hidden]="favourite.$Hidden">
+                        <td colspan="3">
+                            <table class="table" style="width: 100%;" [hidden]="!favourite.$HasReleases">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <b>Year</b>
+                                        </td>
+                                        <td>
+                                            <b>Title</b>
+                                        </td>
+                                        <td>
+                                            <b>Release label</b>
+                                        </td>
+                                        <td>
+                                            <b>Number of tracks</b>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let release of favourite.Releases">
+                                    <tr>
+                                        <td>
+                                            <a (click)="removeFavourites(favourite, release)">
+                                                <i aria-hidden="true" class="list-remove fa fa-minus-circle"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{release.ReleaseYear}}
+                                        </td>
+                                        <td>
+                                            {{release.Title}}
+                                        </td>
+                                        <td>
+                                            {{release.Label}}
+                                        </td>
+                                        <td>
+                                            {{release.TrackCount}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <span [hidden]="favourite.$HasReleases">No releases found.</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="!hasFavourites">
+            <h3>You have not added any favourites.</h3>
+        </div>
+    </div>
+</body>
+
+</html>

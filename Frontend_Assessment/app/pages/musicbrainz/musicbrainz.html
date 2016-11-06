@@ -1,0 +1,90 @@
+<html lang="en">
+
+<body class="container-body">
+    <div class="container-div">
+        <h1>Search MusicBrainz</h1>
+        <search-control [onSearch]="searchArtist"></search-control>
+        <div class="col-lg-14" class="div-table" *ngIf="showResults" >
+            <div>
+                <h2>Search Results:</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>
+                                <span><b>Artist Name</b></span>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let result of searchResults">
+                        <tr>
+                            <td>
+                                <span>{{result.Name}}</span>
+                            </td>
+                            <td style="text-align:center">
+                                <a class="release-link" (click)="getReleases(result)">{{!result.$Hidden ? "Hide releases" : "Show releases"}}</a>
+                            </td>
+                        </tr>
+                        <tr [hidden]="result.$Hidden">
+                            <td colspan="2">
+                                <table class="table" style="width: 100%;" [hidden]="!result.$HasReleases">
+                                    <thead>
+                                        <tr>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <b>Year</b>
+                                            </td>
+                                            <td>
+                                                <b>Title</b>
+                                            </td>
+                                            <td>
+                                                <b>Release label</b>
+                                            </td>
+                                            <td>
+                                                <b>Number of tracks</b>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let release of result.Releases">
+                                        <tr>
+                                            <td>
+                                                <a (click)="maintainFav(result, release)">
+                                                    <i [ngClass]="{ 'fav-checked': release.$favourited }" style="line-height:22px" class="fa fa-star" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{release.ReleaseYear}}
+                                            </td>
+                                            <td>
+                                                {{release.Title}}
+                                            </td>
+                                            <td>
+                                                {{release.Label}}
+                                            </td>
+                                            <td>
+                                                {{release.TrackCount}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <span [hidden]="result.$HasReleases">No releases found.</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <modal #loadingModal [keyboard]="false" [backdrop]="static" [size]='sm'>
+        <modal-body class="loading-modal-body">
+            <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i><span>Loading</span>
+        </modal-body>
+    </modal>
+</body>
+
+</html>
