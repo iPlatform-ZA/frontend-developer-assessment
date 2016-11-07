@@ -59,6 +59,6 @@ export class MusicBrainzComponent {
 
     public maintainFav(artist: Artist, release: Release) {
         release.$favourited = !release.$favourited;
-        this.favouritesService.addFavourite(artist, release);
+        this.favouritesService.addFavouriteRelease(artist, release);
     }
 }

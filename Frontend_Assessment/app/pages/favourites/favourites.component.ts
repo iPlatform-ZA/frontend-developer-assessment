@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { Favourite } from '../../models/favouriteModel'
 import { Artist } from '../../models/artistModel'
 import { FavouritesService } from '../../services/favouritesService'
 
@@ -7,20 +8,20 @@ import { FavouritesService } from '../../services/favouritesService'
   templateUrl: './app/pages/favourites/favourites.html'
 })
 export class FavouritesComponent {
-  private favourites: Artist[];
+  private favourite: Favourite;
   public hasFavourites: boolean = false;
 
   constructor (private favouritesService:FavouritesService) { 
-    this.favourites = favouritesService.getFavourites();
-    this.hasFavourites = this.favourites.length > 0;
+    this.favourite = favouritesService.getFavourite();
+    this.hasFavourites = this.favourite.Artists.length > 0;
    }
 
-   removeFavourite : Function = (fav, rel = null) => { 
-      this.favouritesService.removeFavourite(fav, rel);
-      this.hasFavourites = this.favourites.length > 0;
+   public removeFavourite(artist:Artist, release = null) { 
+      this.favouritesService.removeFavourite(artist, release);
+      this.hasFavourites = this.favourite.Artists.length > 0;
     }
 
-    private showReleases(favourite:Artist) {
-      favourite.$Hidden = !favourite.$Hidden;
+    private showReleases(artist:Artist) {
+      artist.$Hidden = !artist.$Hidden;
     }
  }

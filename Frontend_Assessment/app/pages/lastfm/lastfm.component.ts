@@ -26,7 +26,7 @@ export class LastFMComponent {
         this.modal.open();
         this.lastfmService.artistSearch(artistName)
             .then(result => {
-                var fav: Artist[] = this.favouritesService.getFavourites();
+                var fav: Artist[] = this.favouritesService.getFavouriteArtists();
                 _.forEach(fav, function (f) {
                     var favArtist = _.find(result, function (ad: Artist) { return ad.Identifier == f.Identifier });
                     if(favArtist != undefined)
@@ -49,7 +49,7 @@ export class LastFMComponent {
 
     public maintainFav(artist: Artist) {
         if (!artist.$favourited)
-            this.favouritesService.addFavourite(artist, null);
+            this.favouritesService.addFavouriteArtist(artist);
         else
             this.favouritesService.removeFavourite(artist, null);
 

@@ -16,23 +16,23 @@
                         </td>
                     </tr>
                 </thead>
-                <tbody *ngFor="let favourite of favourites">
+                <tbody *ngFor="let artist of favourite.Artists">
                     <tr>
                         <td>
-                            <a (click)="removeFavourite(favourite)">
+                            <a (click)="removeFavourite(artist)">
                                 <i aria-hidden="true" class="list-remove fa fa-minus-circle"></i>
                             </a>
                         </td>
                         <td>
-                            <span>{{favourite.Name}}</span>
+                            <span>{{artist.Name}}</span>
                         </td>
                         <td style="text-align:center">
-                            <a class="release-link" (click)="showReleases(favourite)">{{!favourite.$Hidden ? "Hide releases" : "Show releases"}}</a>
+                            <a class="release-link" (click)="showReleases(artist)">{{!artist.$Hidden ? "Hide releases" : "Show releases"}}</a>
                         </td>
                     </tr>
-                    <tr [hidden]="favourite.$Hidden">
+                    <tr [hidden]="artist.$Hidden">
                         <td colspan="3">
-                            <table class="table" style="width: 100%;" [hidden]="!favourite.$HasReleases">
+                            <table class="table" style="width: 100%;" [hidden]="!artist.$HasReleases">
                                 <thead>
                                     <tr>
                                         <td>
@@ -51,10 +51,10 @@
                                         </td>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let release of favourite.Releases">
+                                <tbody *ngFor="let release of artist.Releases">
                                     <tr>
                                         <td>
-                                            <a (click)="removeFavourites(favourite, release)">
+                                            <a (click)="removeFavourite(artist, release)">
                                                 <i aria-hidden="true" class="list-remove fa fa-minus-circle"></i>
                                             </a>
                                         </td>
@@ -73,7 +73,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <span [hidden]="favourite.$HasReleases">No releases found.</span>
+                            <span [hidden]="artist.$HasReleases">No releases added.</span>
                         </td>
                     </tr>
                 </tbody>
