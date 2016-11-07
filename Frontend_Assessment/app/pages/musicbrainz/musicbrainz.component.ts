@@ -40,7 +40,7 @@ export class MusicBrainzComponent {
 
                     var fav: Release[] = this.favouritesService.getFavouriteReleases(artistData);
                     _.forEach(fav, function (f) {
-                        var favRelease = _.find(result, function (ad: Release) { return ad.Identifier = f.Identifier });
+                        var favRelease = _.find(result, function (ad: Release) { return ad.Identifier == f.Identifier });
                         if (favRelease != undefined)
                             favRelease.$favourited = true;
                     });

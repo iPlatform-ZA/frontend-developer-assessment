@@ -29,6 +29,7 @@ export class FavouritesService {
             if (art.Releases == undefined)
                 art.Releases = [];
             art.Releases.push(release);
+            art.$HasReleases = true;
         }
     }
 
