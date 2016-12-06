@@ -1,0 +1,184 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.GreenSpan {
+    color: rgba(0,255,0,0) !important;
+}
+
+#Home {
+    height: 100vh;
+    margin-bottom: 0px !important;
+}
+
+.cntr {
+    text-align: center;
+}
+
+.jumbotron {
+    color: snow;
+    height: 100vh;
+    background-image: url(../Images/Header2.png);
+    background-color: black;
+    background-size: cover;
+    background-position: 50% 0px;
+}
+
+    .jumbotron .container {
+        margin-top: 13%;
+    }
+
+    .jumbotron h1, .jumbotron p {
+        text-align: center;
+    }
+
+    .jumbotron p {
+        color: #00FF00;
+    }
+
+.ai {
+}
+
+.qc {
+    height: 500px;
+    width: 100%;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    border-color: #e9d3d3;
+    outline: 0px;
+    overflow-y: auto;
+}
+
+
+.animate {
+    animation: ease-out;
+    animation-duration: 1s;
+}
+
+.loading {
+    background-color: rgba(0,0,0,0.8);
+    visibility: hidden;
+    z-index: 9999;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+    .loading > div {
+        top: 40%;
+        width: 100%;
+        height: 250px;
+        position: fixed;
+        background-color: white;
+        text-align: center;
+    }
+
+    .loading img {
+        margin-top: 4%;
+        width: 50px;
+        height: 50px;
+    }
+
+.Delete {
+    margin-right: 3px;
+}
+
+.Favorite, .Delete {
+    color: rgb(128, 128, 128);
+    margin-right: 15px;
+}
+
+.FavoriteGreen {
+    color: #00FF00;
+    margin-right: 15px;
+}
+
+.resultlists {
+    padding: 0;
+    list-style-type: none;
+    width: 100%;
+}
+
+    .resultlists li {
+        /*background-color:red;*/
+        padding: 5px 5px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+        .resultlists li:hover {
+            background-color: rgba(0,255,0,0.03);
+        }
+
+        .resultlists li h4, .resultlists li button {
+            display: inline-block;
+            background-color: transparent;
+        }
+
+        .resultlists li button {
+            margin-top: 2px;
+            float: right;
+        }
+
+    .resultlists h4, .resultlists h5 {
+        text-wrap: normal;
+        max-width: 60%;
+    }
+
+.Delete, .Favorite {
+    background-color: white;
+    border: 0px;
+    margin: 0px;
+}
+
+    .Delete:hover, .Favorite:hover {
+        /*background-color: rgba(0,255,0,0.03);*/
+        border: 0px;
+        margin: 0px;
+    }
+
+    .Delete:hover {
+        color: red;
+    }
+
+
+    .Favorite:hover {
+        color: #00FF00;
+    }
+
+.resultlists span {
+    margin-top: 10px;
+    float: right;
+}
+
+.resultlists i {
+    font-size: 25px;
+}
+
+.resultlists button .Delete, .resultlists button .Delete .Favorite {
+    background-color: white;
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .jumbotron .container {
+        margin-top: 23%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .jumbotron .container {
+        margin-top: 1%;
+    }
+}
+
+@media (max-width: 767px) {
+    .jumbotron .container {
+        margin-top: 45%;
+    }
+}
+
+}
