@@ -1,0 +1,66 @@
+/* Master Styles */
+body {
+  margin-top: 25px!important;
+}
+.container-body .container-div {
+  padding: 20px;
+}
+.container-body .container-div h3 {
+  padding-left: 15px;
+}
+.container-body h1 {
+  padding: 0px 15px 0px 15px;
+}
+.div-table {
+  margin: 75px 0px 0px 15px;
+}
+.div-table h2 {
+  border-bottom: solid lightgrey 2px;
+}
+.div-table .td-add {
+  text-align: center;
+  font-size: 26px;
+}
+.div-table .td-add i {
+  line-height: 50px;
+}
+.btn .fa {
+  height: 20px;
+  line-height: 20px;
+}
+.icon-padding {
+  padding-right: 4px;
+}
+.lastfm-icon {
+  color: red;
+  padding-right: 4px;
+}
+.favourite-icon {
+  color: yellow;
+  padding-right: 4px;
+}
+.release-link {
+  cursor: pointer;
+}
+.fav-checked {
+  color: yellow;
+}
+.list-item {
+  line-height: 50px;
+  cursor: pointer;
+}
+.list-add {
+  line-height: 50px;
+  cursor: pointer;
+  color: green;
+}
+.list-remove {
+  line-height: 50px;
+  cursor: pointer;
+  color: red;
+}
+.loading-modal-body span {
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 10px;
+}

@@ -1,0 +1,87 @@
+<html lang="en">
+
+<body class="container-body">
+    <div class="container-div">
+        <h1>Search Last.fm</h1>
+        <search-control [onSearch]="searchArtist"></search-control>
+        <div class="col-lg-14" class="div-table" *ngIf="showResults"  >
+            <div>
+                <h2>Search Results:</h2>
+            </div>
+            <div class="table-responsive">
+                <a style="float:right" class="btn btn-default" (click)="modal.open()">Show short-list</a>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <b>Artist Name</b>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let result of artistData">
+                        <tr>
+                            <td>
+                                <img height="50px" width="50px" src="{{result.imageUrl}}" />
+                            </td>
+                            <td>
+                                <a href="{{result.Url}}" target="_blank" style="line-height: 50px;"><span>{{result.Name}}</span></a>
+                            </td>
+                            <td class="td-add">
+                                <a (click)="maintainList(result)">
+                                    <i aria-hidden="true" class="list-remove fa fa-minus-circle" *ngIf="result.$added"></i>
+                                    <i aria-hidden="true" class="list-add fa fa-plus-circle" *ngIf="!result.$added"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <modal #modal>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">My short list.</h4>
+        </modal-header>
+        <modal-body>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <b>Artist Name</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let item of shortList">
+                        <tr>
+                            <td>
+                                <a (click)="maintainFav(item)">
+                                    <i [ngClass]="{ 'fav-checked': item.$favourited }" style="line-height:22px" class="fa fa-star" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <span>{{item.Name}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <button type="button" class="btn btn-primary" (click)="modal.close()">Close</button>
+        </modal-footer>
+    </modal>
+    <modal #loadingModal [keyboard]="false" [backdrop]="static" [size]='sm'>
+        <modal-body class="loading-modal-body">
+            <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i><span>Searching</span>
+        </modal-body>
+    </modal>
+</body>
+
+</html>
