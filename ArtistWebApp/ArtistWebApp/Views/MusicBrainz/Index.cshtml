@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Scripts/MyCss/MyStyle.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/xml2json.js"></script>
+<script src="~/Scripts/ngStorage.min.js"></script>
+<script src="~/Scripts/MyScripts/MusicBrainz.js"></script>
+
+<h1>&nbsp</h1>
+<div ng-app="ngmodule">
+    <div ng-controller="ngcontroller">
+         <table class="table table-bordered table-condensed">
+            <tr>
+                <td  class="ArtistName">Artist Name </td>
+                <td>
+                    <input type="text" ng-model="filterValue" class="form-control" />
+                    <input type="button" name="Search" value="Search" style="width:100px" ng-click="getFilteredData()" />
+                </td>
+            </tr>
+        </table>
+
+        <div class="lists" >
+          <ul class="list" title="Search Results">
+            <li class="item" ng-repeat="artist in Artists" >
+                <span class="item-contents" ng-animate-ref="{{ artist }}">{{ artist.name }}</span>
+                <a href="" class="moveLink" ng-click="getReleases(artist)">Show releases</a>
+            </li>
+          </ul>
+          <ul class="list2" title="Releases">
+            <li class="item" ng-repeat="release in Releases" >
+                <span class="item-contents">{{ release.date }} - {{release.title}} - {{release["label-info-list"]["label-info"]["label"].name}} - {{release["medium-list"]["track-count"]}} Tracks</span>
+                <a href="" class="moveLink" ng-click="addToReleaseStorage(release)">Add to Favourite</a>
+            </li>
+          </ul>
+        </div>
+
+     
+        <span>{{Message}}</span>
+    </div>
+    
+</div>
+
