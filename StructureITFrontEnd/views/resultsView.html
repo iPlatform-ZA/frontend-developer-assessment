@@ -1,14 +1,30 @@
 ﻿<div class="col-md-12">
-    <table id="resultTable" class="table">
-        <tr>
-            <td></td>
-            <td>
-                <h3>Artist Name</h3></td>
-        </tr>
-        <tr ng-repeat="artist in resultsCtrl.data.results.artistmatches.artist">
-            <td><img src="{{artist.image[1]['#text']}}" /></td>
-            <td>{{artist.name}}</td>
-            <td><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Search Results:</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7 pull-right">
+            <button id="btnShortList" type="button" class="btn btn-default">Show short-list</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table id="resultTable" class="table">
+                <tr>
+                    <td></td>
+                    <td>
+                        <h5><strong>Artist Name</strong></h5>
+                    </td>
+                </tr>
+                <tr ng-repeat="artist in resultsCtrl.data.results.artistmatches.artist">
+                    <td><img src="{{artist.image[1]['#text']}}" /></td>
+                    <td>{{artist.name}}</td>
+                    <td><button id="{{artist.mbid}}" type="button" class="btn btn-default" ng-click="resultsCtrl.addToShortList(artist);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
+<short-list data="resultsCtrl.shortList"></short-list>

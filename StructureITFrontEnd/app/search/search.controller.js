@@ -12,6 +12,7 @@
         $("#btnSearch").bind("click", function() {
             appService.search($("#txtSearch").val()).then(function(response) {
                 scope.mainContainerCtrl.data = response.data;
+                $("results").show();
             });
         });
     };

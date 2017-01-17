@@ -8,7 +8,11 @@
     "searchDirective",
     "appService",
     "resultsController",
-    "resultsDirective"], function (angularAMD) {
+    "resultsDirective",
+    "shortListController",
+    "shortListDirective",
+    "shortListResultController",
+    "shortListResultDirective"], function (angularAMD) {
         var app = angular.module("MusicApp", []);
 
         return angularAMD.bootstrap(app);

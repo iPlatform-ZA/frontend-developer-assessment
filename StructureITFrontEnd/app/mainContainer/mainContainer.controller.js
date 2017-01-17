@@ -7,7 +7,7 @@
 
     function mainContainerController(scope) {
         var vm = this;
-
+        vm.shortList = [];
     };
 
 });

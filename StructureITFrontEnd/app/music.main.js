@@ -11,7 +11,11 @@
         "searchDirective": "app/search/search.directive",
         "appService": "app/services/app.services",
         "resultsController": "app/results/results.controller",
-        "resultsDirective":"app/results/results.directive"
+        "resultsDirective": "app/results/results.directive",
+        "shortListController": "app/shortlist/shortlist.controller",
+        "shortListDirective": "app/shortlist/shortlist.directive",
+        "shortListResultController": "app/shortListResults/shortListResults.controller",
+        "shortListResultDirective":"app/shortListResults/shortListResults.directive"
     },
     shim: {
         "angular": "angular",
