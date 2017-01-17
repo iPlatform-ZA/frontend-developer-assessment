@@ -1,0 +1,14 @@
+﻿<div class="col-md-12">
+    <table id="resultTable" class="table">
+        <tr>
+            <td></td>
+            <td>
+                <h3>Artist Name</h3></td>
+        </tr>
+        <tr ng-repeat="artist in resultsCtrl.data.results.artistmatches.artist">
+            <td><img src="{{artist.image[1]['#text']}}" /></td>
+            <td>{{artist.name}}</td>
+            <td><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></td>
+        </tr>
+    </table>
+</div>

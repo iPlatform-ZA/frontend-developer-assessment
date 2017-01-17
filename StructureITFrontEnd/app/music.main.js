@@ -8,7 +8,10 @@
         "mainContainerController": "app/mainContainer/mainContainer.controller",
         "mainContainerDirective": "app/mainContainer/mainContainer.directive",
         "searchController": "app/search/search.controller",
-        "searchDirective":"app/search/search.directive"
+        "searchDirective": "app/search/search.directive",
+        "appService": "app/services/app.services",
+        "resultsController": "app/results/results.controller",
+        "resultsDirective":"app/results/results.directive"
     },
     shim: {
         "angular": "angular",

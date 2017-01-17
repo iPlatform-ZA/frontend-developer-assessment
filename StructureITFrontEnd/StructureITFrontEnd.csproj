@@ -125,8 +125,11 @@
     <Content Include="app\mainContainer\mainContainer.directive.js" />
     <Content Include="app\music.main.js" />
     <Content Include="app\music.module.js" />
+    <Content Include="app\results\results.controller.js" />
+    <Content Include="app\results\results.directive.js" />
     <Content Include="app\search\search.controller.js" />
     <Content Include="app\search\search.directive.js" />
+    <Content Include="app\services\app.services.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -908,6 +911,7 @@
     <Content Include="scripts\r.js" />
     <Content Include="scripts\require.js" />
     <Content Include="views\mainContainerView.html" />
+    <Content Include="views\resultsView.html" />
     <Content Include="views\searchView.html" />
     <Content Include="Web.config" />
   </ItemGroup>

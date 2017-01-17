@@ -5,7 +5,10 @@
     "mainContainerController",
     "mainContainerDirective",
     "searchController",
-    "searchDirective"], function (angularAMD) {
+    "searchDirective",
+    "appService",
+    "resultsController",
+    "resultsDirective"], function (angularAMD) {
         var app = angular.module("MusicApp", []);
 
         return angularAMD.bootstrap(app);
