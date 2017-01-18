@@ -10,13 +10,35 @@
         vm.shortList = [];
         vm.releaseData = [];
 
-        vm.addToShortList = function(artist) {
-            vm.shortList.push(artist);
+        vm.addToShortList = function (artist) {
+            var hasBeenAdded = false;
+            $.each(vm.shortList, function (ref, value) {
+                if (value == artist) {
+                    hasBeenAdded = true;
+                }
+            });
+
+            if (hasBeenAdded == false) {
+                vm.shortList.push(artist);
+            }
+            
         };
 
         vm.btnShortListClicked = function() {
-            scope.$$childHead.shortListCtrl.showShortList();
+            scope.$$childTail.shortListCtrl.showShortList();
         }
+
+        vm.addReleaseToFavourites = function (release) {
+            $.each(scope.$root.mainContainerCtrl.favourites, function(ref, value) {
+                if (value.artistId == release.artistId) {
+                    $("#" + release.releaseId).removeClass("glyphicon-star-empty");
+                    $("#" + release.releaseId).addClass("glyphicon-star");
+                    value.releases.push(release);
+                };
+            });
+
+
+        };
 
         vm.showReleases = function (artist) {
             if (artist.show) {
@@ -40,6 +62,7 @@
 
                         dataArray.push({
                             artistId: $(value).find("artist").attr("id"),
+                            releaseId:$(value).attr("id"),
                             title: title,
                             date: date,
                             label: label,

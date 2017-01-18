@@ -10,6 +10,9 @@
             controller: "favouritesController",
             controllerAs: "favouritesCtrl",
             bindToController: true,
+            scope: {
+                data:"="
+            },
             templateUrl: "views/favouritesView.html",
             link: link
         };

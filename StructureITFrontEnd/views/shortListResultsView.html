@@ -7,7 +7,7 @@
             </td>
         </tr>
         <tr ng-repeat="artist in shortListResultsCtrl.data">
-            <td><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></td>
+            <td><span id="favIcon{{artist.listeners}}{{artist.mbid}}" ng-click="shortListResultsCtrl.addToFavourites(artist);" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></td>
             <td>{{artist.name}}</td>
             
         </tr>

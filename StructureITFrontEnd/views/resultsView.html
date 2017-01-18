@@ -6,7 +6,7 @@
     </div>
     <div class="row">
         <div class="col-md-7 pull-right">
-            <button id="btnShortList" type="button" class="btn btn-default" ng-click="resultCtrl.btnShortListClicked()">Show short-list</button>
+            <button id="btnShortList" type="button" ng-if="resultsCtrl.islastfm" class="btn btn-default" ng-click="resultsCtrl.btnShortListClicked()">Show short-list</button>
         </div>
     </div>
     <div class="row">
@@ -52,7 +52,7 @@
                                             <td><h5><strong>Number Of Tracks</strong></h5></td>
                                         </tr>
                                         <tr ng-repeat="release in resultsCtrl.releaseData">
-                                            <td><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></td>
+                                            <td><span id="{{release.releaseId}}" class="glyphicon glyphicon-star-empty" aria-hidden="true" ng-click="resultsCtrl.addReleaseToFavourites(release);"></span></td>
                                             <td>{{release.date}}</td>
                                             <td>{{release.title}}</td>
                                             <td>{{release.label}}</td>

@@ -1,1 +1,44 @@
-﻿
+﻿<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <tr>
+                <td></td>
+                <td><h5><strong>Artist Name</strong></h5></td>
+                <td></td>
+            </tr> 
+            <tr ng-repeat="fav in favouritesCtrl.data">
+                <td colspan="3">
+                    <table class="table">
+                        <tr>
+                            <td><span id="favRes{{fav.listeners}}{{fav.mbid}}" class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="favouritesCtrl.removeFavourite(fav);"></span></td>
+                            <td>{{fav.name}}</td>
+                            <td><button id="favDel{{fav.listeners}}{{fav.artistId}}" type="button" class="btn btn-default pull-right" ng-click="favouritesCtrl.showReleases(fav)">Show Releases </button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" ng-if="fav.show">
+                                <table class="table" id="resultTable">
+                                    <tr>
+                                        <td><h5><strong>Release Date</strong></h5></td>
+                                        <td>
+                                            <h5><strong>Title</strong></h5>
+                                        </td>
+                                        <td><h5><strong>Label</strong></h5></td>
+                                        <td><h5><strong>Number Of Tracks</strong></h5></td>
+                                    </tr>
+                                    <tr ng-repeat="release in fav.releases">
+                                        <td>{{release.date}}</td>
+                                        <td>{{release.title}}</td>
+                                        <td>{{release.label}}</td>
+                                        <td>{{release.numTracks}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
