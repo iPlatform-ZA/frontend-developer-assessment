@@ -17,7 +17,7 @@
         "shortListResultController": "app/shortListResults/shortListResults.controller",
         "shortListResultDirective": "app/shortListResults/shortListResults.directive",
         "lastfmController": "app/lastfm/lastfm.controller",
-        "lastfmDirective": "app/lastfm/lastfm.directve",
+        "lastfmDirective": "app/lastfm/lastfm.directive",
         "favouritesController": "app/favourites/favourites.controller",
         "favouritesDirective": "app/favourites/favourites.directive",
         "musicBrainzController": "app/musicbrainz/musicbrainz.controller",

@@ -9,6 +9,11 @@
             restrict: "E",
             controller: "searchController",
             controllerAs: "searchCtrl",
+            scope: {
+                islastfm: "@",
+                ismusicbrainz: "@",
+                ident:"@"
+            },
             bindToController: true,
             templateUrl: "views/searchView.html",
             link: link

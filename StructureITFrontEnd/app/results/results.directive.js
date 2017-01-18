@@ -10,7 +10,10 @@
             controller: "resultsController",
             controllerAs: "resultsCtrl",
             scope: {
-                data:"="
+                data: "=",
+                islastfm: "@",
+                isfavourites: "@",
+                ismusicbrainz:"@"
             },
             bindToController: true,
             templateUrl: "views/resultsView.html",

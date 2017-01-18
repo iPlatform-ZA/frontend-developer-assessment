@@ -6,12 +6,13 @@
     </div>
     <div class="row">
         <div class="col-md-7 pull-right">
-            <button id="btnShortList" type="button" class="btn btn-default">Show short-list</button>
+            <button id="btnShortList" type="button" class="btn btn-default" ng-click="resultCtrl.btnShortListClicked()">Show short-list</button>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <table id="resultTable" class="table">
+            <!-- LAst FM Results -->
+            <table id="resultTable" class="table" ng-if="resultsCtrl.islastfm">
                 <tr>
                     <td></td>
                     <td>
@@ -19,11 +20,53 @@
                     </td>
                 </tr>
                 <tr ng-repeat="artist in resultsCtrl.data.results.artistmatches.artist">
-                    <td><img src="{{artist.image[1]['#text']}}" /></td>
+                    <td><img src="{{artist.image[1]['#text']}}"/></td>
                     <td>{{artist.name}}</td>
                     <td><button id="{{artist.mbid}}" type="button" class="btn btn-default" ng-click="resultsCtrl.addToShortList(artist);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button> </td>
                 </tr>
             </table>
+            <!-- Music Brainz Reults -->
+            <table id="resultTable" class="table" ng-if="resultsCtrl.ismusicbrainz">
+                <tr>
+                    <td>
+                        <h5><strong>Artist Name</strong></h5>
+                    </td>
+                </tr>
+                <tr ng-repeat="artist in resultsCtrl.data">
+                    <td colspan="2">
+                        <table class="table">
+                            <tr>
+                                <td>{{artist.Name}}</td>
+                                <td><button id="{{artist.artistId}}" type="button" class="btn btn-default pull-right" ng-click="resultsCtrl.showReleases(artist);">Show Releases </button> </td>
+                            </tr>
+                            <tr ng-if="artist.show">
+                                <td colspan="2">
+                                    <table class="table" id="resultTable">
+                                        <tr>
+                                            <td></td>
+                                            <td><h5><strong>Release Date</strong></h5></td>
+                                            <td>
+                                                <h5><strong>Title</strong></h5>
+                                            </td>
+                                            <td><h5><strong>Label</strong></h5></td>
+                                            <td><h5><strong>Number Of Tracks</strong></h5></td>
+                                        </tr>
+                                        <tr ng-repeat="release in resultsCtrl.releaseData">
+                                            <td><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></td>
+                                            <td>{{release.date}}</td>
+                                            <td>{{release.title}}</td>
+                                            <td>{{release.label}}</td>
+                                            <td>{{release.numTracks}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    
+                </tr>
+            </table>
+           
         </div>
     </div>
 </div>
