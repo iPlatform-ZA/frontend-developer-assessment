@@ -15,7 +15,13 @@
         "shortListController": "app/shortlist/shortlist.controller",
         "shortListDirective": "app/shortlist/shortlist.directive",
         "shortListResultController": "app/shortListResults/shortListResults.controller",
-        "shortListResultDirective":"app/shortListResults/shortListResults.directive"
+        "shortListResultDirective": "app/shortListResults/shortListResults.directive",
+        "lastfmController": "app/lastfm/lastfm.controller",
+        "lastfmDirective": "app/lastfm/lastfm.directve",
+        "favouritesController": "app/favourites/favourites.controller",
+        "favouritesDirective": "app/favourites/favourites.directive",
+        "musicBrainzController": "app/musicbrainz/musicbrainz.controller",
+        "musicBrainzDirective":"app/musicbrainz/musicbrainz.directive"
     },
     shim: {
         "angular": "angular",

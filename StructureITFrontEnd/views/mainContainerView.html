@@ -11,14 +11,14 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">MusicBrainz</a>
+                        <a id="menuMusicBrainz" class="navbar-brand" href="#">MusicBrainz</a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><span class="glyphicon glyphicon-music" aria-hidden="true"></span> Last.fm</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favourites</a></li>
+                            <li><a id="menuLastFM" href="#"><span class="glyphicon glyphicon-music" aria-hidden="true"></span> Last.fm</a></li>
+                            <li><a id="menuFavourites" href="#"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Favourites</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
@@ -26,12 +26,11 @@
         </div>
     </div>
     <div class="row">
-        <search></search>
-    </div>
-    <div class="row">
-        <results data="mainContainerCtrl.data" style="display: none">
-
-        </results>
+        <div class="col-md-12">
+            <last-fm style="display: none"></last-fm>
+            <music-brainz style="display: none"></music-brainz>
+            <favourites style="display:none"></favourites>
+        </div>
     </div>
 </div>
 

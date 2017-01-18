@@ -94,6 +94,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\favourites\favourites.controller.js" />
+    <Content Include="app\favourites\favourites.directive.js" />
+    <Content Include="app\lastfm\lastfm.controller.js" />
+    <Content Include="app\lastfm\lastfm.directive.js" />
+    <Content Include="app\musicbrainz\musicbrainz.controller.js" />
+    <Content Include="app\musicbrainz\musicbrainz.directive.js" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -914,7 +920,10 @@
     <Content Include="scripts\jquery-1.9.1.min.js" />
     <Content Include="scripts\r.js" />
     <Content Include="scripts\require.js" />
+    <Content Include="views\favouritesView.html" />
+    <Content Include="views\lastfmView.html" />
     <Content Include="views\mainContainerView.html" />
+    <Content Include="views\musicBrainzView.html" />
     <Content Include="views\resultsView.html" />
     <Content Include="views\searchView.html" />
     <Content Include="views\shortListResultsView.html" />

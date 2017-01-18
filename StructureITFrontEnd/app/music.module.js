@@ -12,7 +12,13 @@
     "shortListController",
     "shortListDirective",
     "shortListResultController",
-    "shortListResultDirective"], function (angularAMD) {
+    "shortListResultDirective",
+    "lastfmController",
+    "lastfmDirective",
+    "favouritesController",
+    "favouritesDirective",
+    "musicBrainzController",
+    "musicBrainzDirective"], function (angularAMD) {
         var app = angular.module("MusicApp", []);
 
         return angularAMD.bootstrap(app);
