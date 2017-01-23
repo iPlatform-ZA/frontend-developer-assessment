@@ -1,0 +1,16 @@
+<h2>
+ My short list.
+</h2>
+<hr/>
+<table class="table table-responsive table-hover">
+  <tbody>
+    <tr>
+      <th></th>
+      <th>Artist Name</th>
+    </tr>
+    <tr *ngFor="let artist of shortlist">
+      <td><img [src]="favImageUrl" (click)="addFavourite(artist)"></td>
+      <td>{{artist.artistName}}</td>
+    </tr>
+  </tbody>
+</table>
