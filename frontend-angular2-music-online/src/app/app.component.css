@@ -1,0 +1,38 @@
+.navbar-custom {
+	background-color:#222222;
+    color:#ffffff;
+  	border-radius:0;
+}
+  
+.navbar-custom .navbar-nav > li > a {
+  	color:#fff;
+}
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #ffffff;
+	background-color:transparent;
+}
+      
+.navbar-custom .navbar-nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #696969;
+}
+      
+.navbar-custom .navbar-brand {
+  	color:#eeeeee;
+}
+.navbar-custom .navbar-toggle {
+  	background-color:#eeeeee;
+}
+.navbar-custom .icon-bar {
+  	background-color:#696969;
+}
+
+.icon-favorites {
+    background-image: url("http://localhost:4200/app/images/favorites-icon.png");
+    background-position: center center;
+}
+
+.icon-last-fm {
+    background-image: url("../app/images/last-fm-icon.png");
+    background-position: center center;
+}

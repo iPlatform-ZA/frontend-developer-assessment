@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1>
+      Search MusicBrainz
+    </h1>
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="" #searchText>
+      <div class="input-group-btn">
+        <button class="btn btn-default"><i class="glyphicon glyphicon-search" (click)="getArtists(searchText.value)"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.row -->
+<div class="row">
+  <div class="col-lg-12">
+    <h1>
+      Search Results
+    </h1>
+    <hr/>
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-lg-12">
+    <table class="table table-responsive table-hover" style="border-collapse:collapse;">
+<thead>
+  <tr>
+    <th>Artist Name</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody *ngFor="let artist of artistLst; let i=index" >
+  <tr data-toggle="collapse" attr.data-target="#row{{i}}" class="accordion-toggle">
+    <td>{{artist.artistName}}</td>
+    <td>Show Releases</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="hiddenRow">
+      <div id="row{{i}}" class="accordian-body collapse" >
+        <table class="table table-responsive table-hover" >
+          <thead>
+            <tr>
+              <th></th>
+              <th>Year</th>
+              <th>Title</th>
+              <th>Release Label</th>
+              <th>Number of Tracks</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let rel of artist.releases">
+            <tr>
+              <td><img [src]="likeImageUrl" (click)="addFavourite(artist)"></td>
+              <td>{{rel.Year}}</td>
+              <td>{{rel.Title}}</td>
+              <td>{{rel.ReleaseLable}}</td>
+              <td>{{rel.NumberOfTracks}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+<script>
+  $('.collapse').on('show.bs.collapse', function () {
+    $('.collapse.in').collapse('hide');
+  });
+</script>
