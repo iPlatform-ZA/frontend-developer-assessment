@@ -1,0 +1,63 @@
+﻿<div class="container">
+
+
+    <div class="page-header">
+        <h2>Favourites</h2>
+    </div>
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading" style="font-weight: bold">
+            Releases
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Year</th>
+                    <th>Title</th>
+                    <th>Release Label</th>
+                    <th>Number of tracks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="release in realeases">
+                    <td>
+                        <a><span ng-click="removeFavouriteRelease(release)" class="glyphicon glyphicon-star"></span></a>                        
+                    </td>
+                    <td>{{release.date}}</td>
+                    <td>{{release.title}}</td>
+                    <td>{{release["label-info"][0].label.name}}</td>
+                    <td>{{release["track-count"]}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading" style="font-weight: bold">
+            Artists                
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Artist Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="artist in artists">
+                    <td><a><span ng-click="removeFavouriteArtist(artist)" class="glyphicon glyphicon-star"></span></a></td>
+                    <td>{{artist.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>
