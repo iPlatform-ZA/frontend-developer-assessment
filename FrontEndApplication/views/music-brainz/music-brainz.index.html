@@ -1,0 +1,53 @@
+﻿<div class="container">
+    
+    <form>
+        <div class="form-group">
+            <label for="txtSearch">
+                Search MusicBrainz
+            </label>
+            <div class="input-group">
+                <input id="txtSearch" ng-model="searchTerm" type="text" class="form-control" placeholder="Artist's Name" aria-describedby="basic-addon2" ng-keyup="$event.keyCode == 13 && searchArtists()">
+                <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search" ng-click="searchArtists()"></span></span>
+            </div>
+        </div>         
+    </form>
+  
+    <div class="page-header">
+        <label>Search Results:</label>
+       
+    </div>
+
+    <div class="panel-default" ng-repeat="artist in artists">
+        <div class="panel-heading" id="{{artist.id}}">{{artist.name}}<a class="pull-right" ng-click="showReleasesForArtist(artist.id)">{{getShowHideMessage(artist.id)}}</a></div>
+        <div class="panel-body" ng-show="showOrHideReleases(artist.id)">
+            <div class="panel panel-default">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Year</th>
+                            <th>Title</th>
+                            <th>Release Label</th>
+                            <th>Number of tracks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="release in Releases[artist.id]">
+                            <td>
+                                <a>
+                                    <span ng-click="addToFavourites(release)" class="glyphicon glyphicon-star-empty" ng-hide="release.isFavourite"></span>
+                                    <span class="glyphicon glyphicon-star" ng-show="release.isFavourite"></span>
+                                </a>
+                            </td>
+                            <td>{{release.date | yearFilter}}</td>
+                            <td>{{release.title}}</td>
+                            <td>{{release["label-info"][0].label.name}}</td>
+                            <td>{{release["track-count"]}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

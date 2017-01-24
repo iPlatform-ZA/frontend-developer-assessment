@@ -1,0 +1,78 @@
+﻿<div class="container">
+
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label for="txtSearch">
+                    Search Last.fm
+                </label>
+                <div class="input-group">
+                    <input id="txtSearch" ng-model="searchTerm" type="text" class="form-control" placeholder="Artist's Name" aria-describedby="basic-addon2" ng-keyup="$event.keyCode == 13 && searchArtists()" >
+                    <span class="input-group-addon" id="basic-addon2"><a><span class="glyphicon glyphicon-search" ng-click="searchArtists()"></span></a></span>
+                </div>
+            </div>
+        </form>
+
+        <div class="page-header">
+            <label>Search Results:</label>
+        </div>
+
+    </div>
+
+    <div class="container" style="padding-bottom: 10px;">
+        <button type="button" class="btn btn-default pull-right" ng-click="displayShortlist()">Show short-list</button>
+        <br />
+        <br />
+        <div class="panel panel-default" ng-show="shortlistVisible">
+
+            <div class="panel-heading" style="font-weight: bold">
+                My Shortlist
+                <a><span ng-click="displayShortlist()" class=" pull-right glyphicon glyphicon-remove"></span></a>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th>Artist Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="artist in shortlist">
+                        <td>
+                            <a><span ng-click="addToFavourites(artist)" class="glyphicon glyphicon-star-empty" ng-hide="artist.isFavourite"></span>
+                               <span class="glyphicon glyphicon-star" ng-show="artist.isFavourite"></span>
+                            </a>
+                        </td>
+                        <td>{{artist.name}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel panel-default">
+            <table class="table table-striped">
+                <tbody>
+                    <tr ng-repeat="artist in artists">
+                        <td>
+                            <img ng-src='{{artist.image[0]["#text"]}}' /></td>
+                        <td>{{artist.name}}</td>
+                        <td>
+                            <a class="pull-right" >
+                                <span ng-click="addToShortlist(artist)" class="glyphicon glyphicon-plus" ng-hide="artist.isShortlisted"></span>
+                                <span class="glyphicon glyphicon-list" ng-show="artist.isShortlisted"></span>
+                            </a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
