@@ -10,14 +10,11 @@
     };
 
 
-    return function(inputDate) {
-    
+    return function(inputDate) {    
         
         var year = $filter('date')(inputDate, 'yyyy');
 
         if(year && year.length > 4){
-
-            if (inputDate.length === 4) { return inputDate; }
 
             var yearArr = getYearFromNonDate(inputDate, '-');
             if (yearArr.length === 1) { return yearArr[0] };
