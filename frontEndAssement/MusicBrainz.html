@@ -1,0 +1,185 @@
+﻿<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>MusicBrainz</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body>
+
+    <div class="header-container">
+        <header class="wrapper clearfix">
+
+            <div class="navbar navbar-inverse">
+                <div class="navbar-collapse collapse navbar-inverse-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="MusicBrainz.html">MusicBrainz</a></li>
+                        <li><a href="LastFm.html">Last.fm</a></li>
+                        <li><a href="Favourites.html">Favourites</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="main-container">
+        <div class="main wrapper clearfix">
+            <h2>Search MusicBrainz</h2>
+            <br />
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search Artist" name="artistName" id="artistName">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" id="btnsearch" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+            <br />
+            <h2>Search  Results </h2>
+            <hr />
+            <div id="divinfo" class="alert-danger">
+                <label id="lblerror"></label>
+            </div>
+            <br />
+            <div class="well well-sm text-right">
+                <a href="ShortList.html"><input type="button" class="btn btn-info btn-default" value="Show short-list"></a>
+            </div>
+            <br />
+            <table class="table table-striped table-hover table-condensed" id="artistTbl">
+                <thead>
+                    <tr>
+                        <th>Artist Name</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div> <!-- #main -->
+    </div> <!-- #main-container -->
+    <div class="footer-container">
+        <footer class="wrapper">
+            Caroline Chirenje Assesment
+        </footer>
+    </div>
+
+
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            userName = ''; //clear name
+            $('#divinfo').hide(); // by default this is not seen by the user
+
+            $('.showRelease').click(function (element) {//gets the specific id of the artist row clicked
+                var clickedArtist = $(this).attr('id');
+                console.log("Clicked artist is " + clickedArtist);
+                if (clickedArtist != "undefined") {
+                    showArtistReleases(clickedArtist);
+                }
+            });
+
+            $('#btnsearch').click(function () {
+                $('#divinfo').hide();
+                userName = $('#artistName').val();
+                if (userName != '') { // no need to go and fetch data if no name has been provided
+                    console.log(userName);
+                    getArtistInfo(userName)
+                   .error(function (req, status, errorObj) {
+                       $('#divinfo').show();
+                       $("#lblerror").text("Some error occured whilst retrieving data");
+                   })
+                   .done(function (data) {
+                       // parse data to json
+                       var jsonData = JSON.parse(data);
+                       extractData(jsonData);//extract data returned from ajax call as json
+                       console.dir(jsonData);
+                   });
+                }
+                else {
+                    $('#divinfo').show();
+                    $("#lblerror").text("Please provide artist name");
+                }
+
+            });
+
+        });
+
+        function getArtistInfo(userName) {
+            var url = 'http://musicbrainz.org/ws/2/artist/?query=artist:' + userName;
+            console.log("Url is " + url);
+            return $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "xml"
+
+            });
+        } //gets artist info through an ajax call
+
+        function extractData(response) {
+            var objectlength = isEmpty(response);
+            console.log("Response is empty : " + objectlength);
+            if (!objectlength) {
+                if (response.results.artistmatches.artist.length > 0) {
+                    showResults(response);
+                }
+                else {
+                    $('#divinfo').show();
+                    $("#lblerror").text("No results returned by search.");
+                }
+
+            }
+        }
+
+        function isEmpty(response) {
+            return Object.keys(response).length === 0;
+        }
+
+        function showResults(results) {
+            console.dir(results);
+            //loop through and retrieve the desired artist data
+            for (i = 0; i < results.results.artistmatches.artist.length; i++) {
+                currentArtist = results.results.artistmatches.artist[i];
+                var Id = currentArtist.name;
+                $('#artistTbl').append('<tr><<td>' + currentArtist.name + '</td><td>' + '<a href="#"  id= "' + Id + '">Show Releases</a>' + '</td></tr>');
+
+            }
+            console.log("Finished loading artists");
+        }
+
+
+        function showArtistReleases(clickedArtist) {
+            if (clickedArtist == undefined)
+            { return; } 
+            getArtistReleases(clickedArtist) // make an ajaxCall to get artist releases
+                   .error(function (req, status, errorObj) {
+                       $('#divinfo').show();
+                       $("#lblerror").text("Some error occured whilst retrieving data");
+                   })
+                   .done(function (data) {
+                       // parse data to json
+                       var jsonData = JSON.parse(data);
+                       extractData(jsonData);//extract data returned from ajax call as json
+                       console.dir(jsonData);
+                   });
+        }
+        function getArtistReleases(artist) {
+            var url = 'http://musicbrainz.org/ws/2/release/?query=release:' + artist;
+            console.log("Release Url is " + url);
+            return $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "xml"
+
+            });
+        } //gets artist info through an ajax call
+    </script>
+</body>
+</html>

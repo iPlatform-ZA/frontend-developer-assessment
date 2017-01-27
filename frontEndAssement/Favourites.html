@@ -1,0 +1,120 @@
+﻿<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>My Favourites</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body>
+
+    <div class="header-container">
+        <header class="wrapper clearfix">
+
+            <div class="navbar navbar-inverse">
+                <div class="navbar-collapse collapse navbar-inverse-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="MusicBrainz.html">MusicBrainz</a></li>
+                        <li><a href="LastFm.html">Last.fm</a></li>
+                        <li class="active"><a href="Favourites.html">Favourites</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="main-container">
+        <div class="main wrapper clearfix">
+            <h2>Favourites</h2>
+            <br />
+            <table class="table table-striped table-hover table-condensed" id="artistTbl">
+                <thead>
+                    <tr>
+                        <th></th><!--column for generating  the remove button-->
+                        <th>Artist Name</th>
+                        <th></th> <!--column for generating show releases link-->
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div> <!-- #main -->
+    </div> <!-- #main-container -->
+    <div class="footer-container">
+        <footer class="wrapper">
+            Caroline Chirenje Assesment
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //retrive favourites from local storage
+            var currentFavourites = getFavourites();
+            //populate favourites into table
+            showResults(currentFavourites);
+            $('.infolink').click(function (element) {//gets the specific id of the artist row clicked
+                var clickedArtist = $(this).attr('id');
+                console.log("Clicked artist is " + clickedArtist);
+               
+                if (clickedArtist != "undefined") {
+                    removeFromFavourites(clickedArtist);
+                }
+            });
+        });
+
+        function getFavourites() {
+            console.log(localStorage.Favourites);
+            // Parse any JSON previously stored in allEntries
+            var existingEntries = JSON.parse(localStorage.getItem("Favourites"));
+            if (existingEntries == null) existingEntries = [];
+            console.dir(existingEntries);
+            return existingEntries
+        };
+
+        function showResults(results) {
+            console.dir(results);
+            //loop through and retrieve the desired artist data
+            for (i = 0; i < results.length; i++) {
+                favouriteArtist = results[i];
+                var Id = favouriteArtist.Artistname;
+                $('#artistTbl').append('<tr><td><a href="#" class="infolink" id= "' + Id + '"><span class="glyphicon glyphicon-minus-sign"  style="color:red"></span></a></td><td>' + favouriteArtist.Artistname + '</td></tr>');
+
+            }
+            console.log("Finished loading artists");
+        }
+
+        function removeFromFavourites(clickedArtist) {
+            if (clickedArtist == undefined)
+            { return; } // no need to save meaningless data
+            // Parse any JSON previously stored in Favourites
+            var existingEntries = JSON.parse(localStorage.getItem("Favourites"));
+            if (existingEntries == null) existingEntries = [];
+
+            var index = -1;
+            var obj = JSON.parse(localStorage.getItem("cart")) || {}; //fetch cart from storage
+            var items = obj.products || []; //get the products
+            for (var i = 0; i < existingEntries.length; i++) { //loop over the collection
+                if (existingEntries[i].Artistname === id) { //see if names match
+                    existingEntries.splice(i, 1); //remove item from array
+                    break; //exit loop
+                }
+            }
+            localStorage.setItem("Favourites", JSON.stringify(existingEntries)); //set item back into storage
+            console.log(clickedArtist + "removed from favourites");
+            console.log(localStorage.Favourites);
+        }
+
+    </script>
+</body>
+</html>
