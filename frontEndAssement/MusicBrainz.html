@@ -62,6 +62,10 @@
                 </thead>
                 <tbody></tbody>
             </table>
+
+            <div id="divTotal" class="alert-info">
+                <label id="lblTotal"></label>
+            </div>
         </div> <!-- #main -->
     </div> <!-- #main-container -->
     <div class="footer-container">
@@ -72,12 +76,13 @@
 
 
     <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script src="Scripts/xml2json.js"></script>  <!--plugin that converts the returned xml data to json-->
     <script type="text/javascript">
 
         $(document).ready(function () {
             userName = ''; //clear name
             $('#divinfo').hide(); // by default this is not seen by the user
-
+            $('#divTotal').hide();
             $('.showRelease').click(function (element) {//gets the specific id of the artist row clicked
                 var clickedArtist = $(this).attr('id');
                 console.log("Clicked artist is " + clickedArtist);
@@ -98,9 +103,10 @@
                    })
                    .done(function (data) {
                        // parse data to json
-                       var jsonData = JSON.parse(data);
-                       extractData(jsonData);//extract data returned from ajax call as json
+                       var jsonData = $.xml2json(data);
                        console.dir(jsonData);
+                       extractData(jsonData);//extract data returned from ajax call as json
+
                    });
                 }
                 else {
@@ -119,7 +125,6 @@
                 type: "GET",
                 url: url,
                 dataType: "xml"
-
             });
         } //gets artist info through an ajax call
 
@@ -127,8 +132,10 @@
             var objectlength = isEmpty(response);
             console.log("Response is empty : " + objectlength);
             if (!objectlength) {
-                if (response.results.artistmatches.artist.length > 0) {
-                    showResults(response);
+                var resultsLength = response["#document"].metadata["artist-list"].artist.length;
+                console.log(resultsLength + " returned");
+                if (resultsLength > 0) {
+                    showResults(response, resultsLength);
                 }
                 else {
                     $('#divinfo').show();
@@ -142,22 +149,24 @@
             return Object.keys(response).length === 0;
         }
 
-        function showResults(results) {
+        function showResults(results, resultsLength) {
             console.dir(results);
             //loop through and retrieve the desired artist data
-            for (i = 0; i < results.results.artistmatches.artist.length; i++) {
-                currentArtist = results.results.artistmatches.artist[i];
+            for (i = 0; i < resultsLength; i++) {
+                currentArtist = results["#document"].metadata["artist-list"].artist[i];
                 var Id = currentArtist.name;
                 $('#artistTbl').append('<tr><<td>' + currentArtist.name + '</td><td>' + '<a href="#"  id= "' + Id + '">Show Releases</a>' + '</td></tr>');
 
             }
             console.log("Finished loading artists");
+            $('#divTotal').show();
+            $("#lblTotal").text("Total Results :" + resultsLength);
         }
 
 
         function showArtistReleases(clickedArtist) {
             if (clickedArtist == undefined)
-            { return; } 
+            { return; }
             getArtistReleases(clickedArtist) // make an ajaxCall to get artist releases
                    .error(function (req, status, errorObj) {
                        $('#divinfo').show();

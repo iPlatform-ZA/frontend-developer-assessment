@@ -65,6 +65,9 @@
                 </thead>
                 <tbody></tbody>
             </table>
+            <div id="divTotal" class="alert-info">
+                <label id="lblTotal"></label>
+            </div>
         </div> <!-- #main -->
     </div> <!-- #main-container -->
     <div class="footer-container">
@@ -73,14 +76,14 @@
         </footer>
     </div>
 
-    <script src="js/main.js"></script>
+
     <script src="Scripts/jquery-2.1.3.min.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
             userName = ''; //clear name
             $('#divinfo').hide(); // by default this is not seen by the user
-
+            $('#divTotal').hide();
             $('.addFav').click(function (element) {//gets the specific id of the artist row clicked
                 var clickedArtist = $(this).attr('id');
                 console.log("Clicked artist is " + clickedArtist);
@@ -130,10 +133,12 @@
             var objectlength = isEmpty(response);
             console.log("Response is empty : " + objectlength);
             if (!objectlength) {
-                if (response.results.artistmatches.artist.length > 0) {
+                var resultsLength = response.results.artistmatches.artist.length
+                console.log(resultsLength + " returned.");
+                if (resultsLength > 0) {
                     //save the data to local storage
                     saveData(response);
-                    showResults(response);
+                    showResults(response, resultsLength);
                 }
                 else {
                     $('#divinfo').show();
@@ -147,16 +152,17 @@
             return Object.keys(response).length === 0;
         }
 
-        function showResults(results) {
+        function showResults(results, resultsLength) {
             console.dir(results);
             //loop through and retrieve the desired artist data
-            for (i = 0; i < results.results.artistmatches.artist.length; i++) {
+            for (i = 0; i < resultsLength; i++) {
                 currentArtist = results.results.artistmatches.artist[i];
                 var Id = currentArtist.name;
                 $('#artistTbl').append('<tr><td> <img src="' + currentArtist.image["0"]["#text"] + '"/></td><td>' + currentArtist.name + '</td><td>' + '<a href="#" class="addFav" id= "' + Id + '"><span class="glyphicon glyphicon-plus-sign" style="color:green"></span></a>' + '</td></tr>');
-
             }
             console.log("Finished loading artists");
+            $("#lblTotal").text("Total Results :" + resultsLength);
+            $('#divTotal').show();
         }
 
         function saveData(results) {

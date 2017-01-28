@@ -51,6 +51,9 @@
                 </thead>
                 <tbody></tbody>
             </table>
+            <div id="divTotal" class="alert-info">
+                <label id="lblTotal"></label>
+            </div>
         </div> <!-- #main -->
     </div> <!-- #main-container -->
     <div class="footer-container">
@@ -64,6 +67,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#divinfo').hide();
+            $('#divTotal').hide();
             var results = retriveData(); //gets results from local storage
             if (results != null) {
                 showResults(results);
@@ -76,12 +80,15 @@
 
         function showResults(results) {
             console.dir(results);
+            var resultsLength=results.results.artistmatches.artist.length;
             //loop through and retrieve the desired artist data
-            for (i = 0; i < results.results.artistmatches.artist.length; i++) {
+            for (i = 0; i < resultsLength; i++) {
                 currentArtist = results.results.artistmatches.artist[i];
                 $('#artistTbl').append('<tr><td><span class="glyphicon glyphicon-star"style="color:blue"></span></td><td>' + currentArtist.name + '</td></tr>');
             }
-
+            console.log("Finished loading artists");
+            $('#divTotal').show();
+            $("#lblTotal").text("Total Results :" + resultsLength);
         }
         function retriveData() {
             // Retrieve the results from storage
