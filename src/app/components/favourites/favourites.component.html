@@ -1,0 +1,34 @@
+<h1>Favorites</h1>
+
+
+
+<div *ngIf="favList.length ==0">
+  <div class="well">
+    <h3 class="text-center">Your list is empty</h3>
+  </div>
+</div>
+
+<div class="alert-message" *ngIf="showAlertMessage.length > 0">
+  <div class="alert alert-info alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert"><i class="fa fa-times" aria-hidden="true"></i></a>
+    <strong>Info!</strong> {{showAlertMessage}}.
+  </div>
+</div>
+
+<div *ngIf="favList.length > 0">
+
+  <table class="table table-striped table-hover">
+    <thead>
+    <th></th>
+    <th>Name</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let artist of favList">
+
+      <td><i class="fa fa-minus-circle icon-short-list text-danger" (click) ="removeFromFav(artist.mbid)"></i></td>
+      <td>{{artist.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
