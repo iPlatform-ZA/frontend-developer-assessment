@@ -1,0 +1,71 @@
+<h1>Search MusicBrainz</h1>
+<form (submit) ="searchMusic()">
+  <div class="input-group">
+
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchStr" name="searchStr" required>
+
+    <span class = "input-group-btn">
+                  <button class = "btn btn-default" type = "submit">
+                     <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+               </span>
+  </div>
+
+</form>
+
+<div *ngIf="searchRes">
+  <h2 class="title">Search Results</h2>
+
+  <table class="table table-responsive table-striped ">
+    <tr>
+      <th>Artist Name</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let artist of searchRes">
+      <td colspan="2">
+
+        <table width="100%">
+          <tr>
+            <td>{{artist.name}}</td>
+            <td align="right"><button class="btn btn-link" (click)="showReleases(artist.id)">Show releases</button></td>
+          </tr>
+          <tr *ngIf="artistAlbums && artist.id == activeArtist">
+            <td colspan="2">
+              <div id="no-more-tables">
+                <table class="col-md-12 table-bordered table-striped table-condensed cf">
+                  <thead class="cf">
+                  <tr>
+                    <th></th>
+                    <th>Year</th>
+                    <th>Title</th>
+                    <th>Release label</th>
+                    <th>Number of tracks</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let release of artistAlbums">
+                    <td data-title=""><i class="fa fa-star icon-short-list text-primary"></i></td>
+                    <td data-title="Year"><span *ngIf="release.date">{{release.date}}</span></td>
+                    <td data-title="Title"><span *ngIf="release.title">{{release.title}}</span></td>
+                    <td data-title="Release label"><span *ngIf="release['label-info']">{{release["label-info"][0]["name"]}}</span></td>
+                    <td data-title="Number of tracks"><span *ngIf="release['track-count']">{{release["track-count"]}}</span></td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+
+
+  </table>
+
+
+
+
+</div>
+
