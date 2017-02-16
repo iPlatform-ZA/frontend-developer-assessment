@@ -6,10 +6,11 @@ Prerequisites: Both the CLI and generated project have dependencies that require
 2. Install npm 3 or higher
 3. open cmd
 4. type on cmd "npm install -g @angular/cli"
-4. navigate to project folder (.i.e MusicStore) on cmd, using "cd MusicStore" command.
-5. npm install
-6. type  on cmd "ng serve"
-7. open chrome browser and type url: http://localhost:4200
+5. Clone solution on file system
+6. navigate to project folder (.i.e MusicStore) on cmd, using "cd MusicStore" command.
+7. npm install
+8. type  on cmd "ng serve"
+9. open chrome browser and type url: http://localhost:4200
 
 To run unit tests:
 1. navigate to project folder (.i.e MusicStore) on cmd, using "cd MusicStore" command.
