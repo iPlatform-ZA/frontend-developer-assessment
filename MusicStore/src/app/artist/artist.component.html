@@ -1,0 +1,62 @@
+
+
+<div *ngIf="artistInputs.artists.length>0">
+<div class="row">
+  <span>&nbsp;</span>
+</div>
+<div class="row" *ngIf="artistInputs.showShortList">
+     <button class="btn btn-default pull-right" (click)="ShowList()">Show short-list</button>
+</div>
+
+<div>
+<h4>Artist Name</h4>
+<div *ngFor="let artist of artistInputs.artists">
+<div class="panel-footer" [ngStyle]="{ 'background-color': color }">
+  <a *ngIf="artistInputs.favouriteOptions==2"> <span class="glyphicon glyphicon-minus-sign" (click)="RemoveFromFavoutires(artist)" style="color:red"></span></a>
+  {{artist.name}} 
+  <a class="pull-right" *ngIf="activeArtist.id!=artist.id && artistInputs.ShowReleaseInfo" (click)="ShowRelease(artist)">Show Release</a> 
+  <a class="pull-right" *ngIf="activeArtist.id==artist.id && artistInputs.ShowReleaseInfo" (click)="HideRelease()">Hide Release</a>
+  <a class="pull-right" *ngIf="ShowShortList && ShortList|ArtistExistPipe:artist.id" (click)="AddToShortList(artist)"><span class="glyphicon glyphicon-plus-sign" style="color:green"></span></a>
+</div>
+<div *ngIf="artistInputs.ShowReleaseInfo">
+<div *ngIf="activeArtist.id==artist.id && Releases.length>0">
+    <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Year</th>
+        <th>Title</th>
+        <th>Release Label</th>
+        <th>Number Of Tracks</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let release of Releases">
+        <td>          
+
+            <div *ngIf="artistInputs.favouriteOptions==1">
+              <a> <span class="glyphicon glyphicon-star" (click)="AddToFavoutires(artist)" style="color:royalblue"></span></a>
+            </div>
+        </td>
+        <td>{{release.date | date:YearDateFormat}}</td>
+        <td>{{release.title}}</td>
+        <td>{{release.label}}</td>
+        <td>{{release.numberOfTracks}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="shortList-size" *ngIf="ShowShortList">
+  <h1 class="page-header"> My Short list.</h1>
+  <h4>Artist Name</h4>
+  <div *ngFor="let artist of ShortList">
+<div class="panel-content-nocolour" >
+   <a> <span class="glyphicon glyphicon-star" (click)="AddToFavoutires(artist)" style="color:royalblue"></span></a>
+  {{artist.name}} 
+</div>
+</div>
+</div>

@@ -1,0 +1,11 @@
+<h1> Search Last.fm</h1>
+<div class="input-group">
+ <input class="form-control" required [ngModel]="SearchTerm | lowercase" type="text" (ngModelChange)="SearchTerm = $event" name="inputField"/>
+<div class="input-group-btn">
+  <button class="btn btn-default" (click)="Search()" type="button" [disabled]="SearchTerm.length==0">
+     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+  </button>
+</div>
+</div>
+
+<app-artist [artistInputs]="artistInputs"></app-artist>
