@@ -1,0 +1,18 @@
+
+<h1> Search MusicBrainz</h1>
+<div class="input-group">
+ <input class="form-control" required [(ngModel)]="SearchTerm" type="text"/>
+<div class="input-group-btn">
+  <button class="btn btn-default" (click)="Search()" type="button" [disabled]="SearchTerm.length==0">
+     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+  </button>
+</div>
+</div>
+
+<h1 class="page-header">Search Results:</h1>
+
+<app-artist [artistInputs]="artistInputs"></app-artist>
+
+
+
+
