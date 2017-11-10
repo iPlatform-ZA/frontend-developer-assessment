@@ -1,0 +1,72 @@
+<h1>
+    Search Last.fm
+    <i id="loading" data-bind="visible: isLoading" class="fa fa-spinner fa-pulse fa-fw"></i>
+</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="input-group">
+            <input type="text" data-bind="value: searchParam" placeholder="search artist" class="form-control">
+            <span class="input-group-btn">
+                <button id="search" class="btn btn-default" data-bind="click: search">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+        <br>
+        <button class="btn btn-default pull-right" data-bind="visible: shortList().length > 0" data-toggle="modal" data-target="#shortlistModal" type="button">Show Short-list</button>
+    </div>
+    <div class="col-md-12" style="padding-top: 30px" data-bind="visible: musicBrainz.artists().length > 0">
+        <h2>Search Results:</h2>
+        <hr>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Artist Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: musicBrainz.artists">
+                <tr>
+                    <td>
+                        <img data-bind="attr: { src: img}"  alt="artist">
+                    </td>
+                    <td style="vertical-align: middle;" data-bind="text: name"></td>
+                    <td style="text-align: center; vertical-align: middle;">
+                        <i data-bind="style: {color: isSelected() ? 'green': 'black'}" class="fa fa-plus-circle fa-2x addToShort" ></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="shortlistModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>My Short List</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Artist Name</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: shortList">
+                        <tr>
+                            <td>
+                                <i class="fa fa-star" data-bind="click: favourite, style: {color: isFavourite() ? 'blue': 'black'}"></i>
+                            </td>
+                            <td data-bind="text: name"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

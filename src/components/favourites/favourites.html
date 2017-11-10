@@ -1,0 +1,44 @@
+<h1>Favourites</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Aritst Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: allArtists">
+        <tr>
+            <td>
+                <i data-bind="visible: releases().length == 0" style="color: orangered; vertical-align: middle;" class="fa fa-minus-circle fa-2x removeArtist"></i>
+            </td>
+            <td style="width: 70%" data-bind="text: name"></td>
+            <td>
+                <button class="btn btn-link showRelease" data-bind="visible: releases().length > 0" type="button">
+                    <span data-bind="text: isOpen() ? 'Hide Releases': 'Show Releases'"></span>
+                </button>
+            </td>
+        </tr>
+        <tr data-bind="visible: isOpen">
+            <td colspan="3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: releases">
+                        <tr>
+                            <td>
+                                <i style="color: orangered; vertical-align: middle; " class="fa fa-minus-circle removeRelease"></i>
+                            </td>
+                            <td data-bind="text: title"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
